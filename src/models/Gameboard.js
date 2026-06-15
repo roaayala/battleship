@@ -7,8 +7,12 @@ export default function createGameboard() {
 
   const missedAttackRecord = [];
 
+  const shipsOnBoard = [];
+
   const placeShip = (length, x, y, isVertical = false) => {
     const newShip = createShip(length);
+
+    shipsOnBoard.push(newShip);
 
     if (isVertical) {
       // vertical placement
@@ -38,10 +42,13 @@ export default function createGameboard() {
     }
   };
 
+  const isAllShipsSunk = () => shipsOnBoard.every((ship) => ship.isSunk());
+
   return {
     getBoard: () => boardData,
+    getMissedAttacks: () => missedAttackRecord,
     placeShip,
     receiveAttack,
-    getMissedAttacks: () => missedAttackRecord,
+    isAllShipsSunk,
   };
 }
