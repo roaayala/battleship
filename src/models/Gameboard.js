@@ -5,27 +5,43 @@ export default function createGameboard() {
     .fill(null)
     .map(() => Array(10).fill(null));
 
-  let missedAttack = 0;
+  const missedAttackRecord = [];
 
-  const missedAttackRecord = () => missedAttack;
-
-  const placeShip = (length, startX, startY, isVertical = false) => {
+  const placeShip = (length, x, y, isVertical = false) => {
     const newShip = createShip(length);
 
     if (isVertical) {
       // vertical placement
       for (let i = 0; i < length; i++) {
-        boardData[startY + i][startX] = newShip;
+        boardData[y + i][x] = newShip;
       }
     } else {
       // horizontal placement
       for (let i = 0; i < length; i++) {
-        boardData[startY][startX + i] = newShip;
+        boardData[y][x + i] = newShip;
       }
     }
   };
 
-  const receiveAttack = (x, y) => {};
+  const receiveAttack = (x, y) => {
+    const tile = boardData[y][x];
 
-  return { getBoard: () => boardData, placeShip };
+    if (tile === null) {
+      missedAttackRecord.push([x, y]);
+      boardData[y][x] = "miss";
+      return false;
+    } else if (tile === "miss") {
+      return false;
+    } else {
+      tile.hit();
+      return true;
+    }
+  };
+
+  return {
+    getBoard: () => boardData,
+    placeShip,
+    receiveAttack,
+    getMissedAttacks: () => missedAttackRecord,
+  };
 }
