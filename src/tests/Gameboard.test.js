@@ -58,3 +58,20 @@ test("horizontal ship placement", () => {
   expect(board[0][0]).toBeNull();
   expect(board[0][3]).toBeNull();
 });
+
+test("receive attack", () => {
+  const gameboard = createGameboard();
+
+  gameboard.placeShip(2, 1, 0, false);
+  const missedAttackRecord = gameboard.getMissedAttacks();
+
+  expect(missedAttackRecord.length).toBe(0);
+
+  expect(gameboard.receiveAttack(4, 4)).toBe(false);
+  expect(missedAttackRecord.length).toBe(1);
+  expect(missedAttackRecord[0]).toStrictEqual([4, 4]);
+
+  // return true
+  expect(gameboard.receiveAttack(2, 0)).toBe(true);
+  expect(missedAttackRecord.length).toBe(1);
+});
