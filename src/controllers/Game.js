@@ -3,5 +3,9 @@ import createUI from "../views/DOM";
 export default function startGame() {
   const UI = createUI();
 
-  UI.init();
+  const handleStartGameClick = () => {
+    console.log("click");
+  };
+
+  UI.init(handleStartGameClick);
 }

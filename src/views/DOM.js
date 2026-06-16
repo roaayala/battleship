@@ -1,22 +1,24 @@
 import createFooter from "./Footer";
 import createHeader from "./Header";
+import createStartScreen from "./mains/StartScreen";
 
 export default function createUI() {
   const app = document.getElementById("app");
 
   let main;
 
-  const init = () => {
-    // header
+  const init = (startGameFn) => {
+    // static
     const header = createHeader();
     const footer = createFooter();
 
-    // main
+    // dynamic
     main = document.createElement("main");
     main.id = "main";
-    main.textContent = "main";
 
-    // footer
+    const startScreen = createStartScreen(startGameFn);
+
+    main.append(startScreen);
 
     app.append(header, main, footer);
   };
