@@ -22,6 +22,8 @@ export default function createUI() {
     app.append(header, main, footer);
   };
 
+  const renderShipPlacementShip = () => {};
+
   const updateGameboards = () => {
     main.innerHTML = "";
   };
