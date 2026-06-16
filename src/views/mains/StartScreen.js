@@ -6,18 +6,23 @@ export default function createStartScreen(startGameFn) {
   startScreen.className = "start-screen";
 
   const selectPlayerOneBehavior = createSelectPlayerBehavior({
-    id: "selectBehaviorOne",
+    id: "playerOneBehavior",
     labelText: "Player One Behavior",
   });
 
   const selectPlayerTwoBehavior = createSelectPlayerBehavior({
-    id: "selectBehaviorTwo",
+    id: "playerTwoBehavior",
     labelText: "Player Two Behavior",
   });
 
   const startButton = createButton({
     text: "Start Game",
-    fn: startGameFn,
+    fn: () => {
+      const p1Behavior = document.getElementById("playerOneBehavior").value;
+      const p2Behavior = document.getElementById("playerTwoBehavior").value;
+
+      startGameFn(p1Behavior, p2Behavior);
+    },
   });
 
   startScreen.append(

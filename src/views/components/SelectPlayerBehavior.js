@@ -5,7 +5,7 @@ export default function createSelectPlayerBehavior({ id, labelText }) {
   container.className = "select-player";
 
   const label = document.createElement("label");
-  label.for = id;
+  label.htmlFor = id;
   label.textContent = labelText;
 
   const select = document.createElement("select");

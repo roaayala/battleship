@@ -19,7 +19,6 @@ export default function createUI() {
     const startScreen = createStartScreen(startGameFn);
 
     main.append(startScreen);
-
     app.append(header, main, footer);
   };
 
