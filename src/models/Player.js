@@ -18,9 +18,9 @@ export default function createPlayer({ name, isComputer = false }) {
 
     const randomIndex = Math.floor(Math.random() * availableMoves.length);
     const [x, y] = availableMoves.splice(randomIndex, 1)[0];
-    enemyGameboard.receiveAttack(x, y);
+    const attack = enemyGameboard.receiveAttack(x, y);
 
-    return [x, y];
+    return { attack, targetTile: [x, y] };
   };
 
   return {
