@@ -5,6 +5,10 @@ export default function createStartScreen(startGameFn) {
   const startScreen = document.createElement("div");
   startScreen.className = "start-screen";
 
+  const title = document.createElement("h2");
+  title.className = "select-player__title";
+  title.textContent = "Select Player Behavior";
+
   const selectPlayerOneBehavior = createSelectPlayerBehavior({
     id: "playerOneBehavior",
     labelText: "Player One Behavior",
@@ -26,6 +30,7 @@ export default function createStartScreen(startGameFn) {
   });
 
   startScreen.append(
+    title,
     selectPlayerOneBehavior,
     selectPlayerTwoBehavior,
     startButton,
