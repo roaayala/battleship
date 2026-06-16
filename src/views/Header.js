@@ -6,12 +6,6 @@ export default function createHeader() {
   title.className = "header__title";
   title.textContent = "Battleship";
 
-  const titleInfo = document.createElement("span");
-  titleInfo.className = "header__title-info";
-  titleInfo.textContent = " by roaayala";
-
-  title.append(titleInfo);
-
   header.append(title);
 
   return header;

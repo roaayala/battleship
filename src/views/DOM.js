@@ -1,3 +1,4 @@
+import createFooter from "./Footer";
 import createHeader from "./Header";
 
 export default function createUI() {
@@ -8,6 +9,7 @@ export default function createUI() {
   const init = () => {
     // header
     const header = createHeader();
+    const footer = createFooter();
 
     // main
     main = document.createElement("main");
@@ -16,7 +18,7 @@ export default function createUI() {
 
     // footer
 
-    app.append(header, main);
+    app.append(header, main, footer);
   };
 
   const updateGameboards = () => {
