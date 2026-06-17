@@ -1,5 +1,6 @@
 import createFooter from "./Footer";
 import createHeader from "./Header";
+import createShipPlacementScreen from "./mains/ShipPlacementScreen";
 import createStartScreen from "./mains/StartScreen";
 
 export default function createUI() {
@@ -22,7 +23,12 @@ export default function createUI() {
     app.append(header, main, footer);
   };
 
-  const renderShipPlacementShip = () => {};
+  const renderShipPlacementScreen = (shipPlacementFn) => {
+    main.innerHTML = "";
+    const shipPlacementScreen = createShipPlacementScreen(shipPlacementFn);
+
+    main.append(shipPlacementScreen);
+  };
 
   const updateGameboards = () => {
     main.innerHTML = "";
@@ -30,5 +36,6 @@ export default function createUI() {
   return {
     init,
     updateGameboards,
+    renderShipPlacementScreen,
   };
 }
