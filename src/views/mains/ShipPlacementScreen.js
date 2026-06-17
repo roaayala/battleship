@@ -8,11 +8,11 @@ export default function createShipPlacementScreen(
   const boardData = player.playerGameboard.getBoard();
 
   const availableShips = [
-    { name: "carrier", length: 5 },
-    { name: "battleship", length: 4 },
-    { name: "destroyer", length: 3 },
-    { name: "submarine", length: 3 },
-    { name: "patrol boat", length: 2 },
+    { name: "Carrier", length: 5 },
+    { name: "Battleship", length: 4 },
+    { name: "Destroyer", length: 3 },
+    { name: "Submarine", length: 3 },
+    { name: "Patrol Boat", length: 2 },
   ];
 
   const shipPlacementScreen = document.createElement("div");
@@ -21,6 +21,14 @@ export default function createShipPlacementScreen(
   const title = document.createElement("h2");
   title.className = "ship-placement__title";
   title.textContent = ` Arrange Yours Ship ${player.name}!`;
+
+  const shipsList = document.createElement("ol");
+
+  availableShips.forEach((ship) => {
+    const shipsListItem = document.createElement("li");
+    shipsListItem.textContent = ship.name;
+    shipsList.append(shipsListItem);
+  });
 
   const boardContainer = document.createElement("div");
   boardContainer.className = "ship-placement__container";
@@ -36,6 +44,8 @@ export default function createShipPlacementScreen(
     });
   });
 
+  boardContainer.addEventListener("click", (e) => console.log(e.target));
+
   const playButton = createButton({
     text: "Play Game",
     fn: shipPlacementScreenFn,
@@ -46,7 +56,13 @@ export default function createShipPlacementScreen(
     fn: goBackFn,
   });
 
-  shipPlacementScreen.append(title, boardContainer, playButton, backButton);
+  shipPlacementScreen.append(
+    title,
+    shipsList,
+    boardContainer,
+    playButton,
+    backButton,
+  );
 
   return shipPlacementScreen;
 }
