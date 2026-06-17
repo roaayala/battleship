@@ -3,6 +3,7 @@ import createButton from "../components/Button";
 export default function createShipPlacementScreen(
     player,
     shipPlacementScreenFn,
+    goBackFn,
 ) {
     const boardData = player.playerGameboard.getBoard();
 
@@ -11,7 +12,7 @@ export default function createShipPlacementScreen(
 
     const title = document.createElement("h2");
     title.className = "ship-placement__title";
-    title.textContent = "Arrange Yours Ship Commander!";
+    title.textContent = ` Arrange Yours Ship ${player.name}!`;
 
     const boardContainer = document.createElement("div");
     boardContainer.className = "ship-placement__container";
@@ -21,7 +22,7 @@ export default function createShipPlacementScreen(
             const tile = document.createElement("div");
             tile.className = "ship-placement__tile";
             tile.dataset.x = x;
-            tile.dataset.y = x;
+            tile.dataset.y = y;
             tile.textContent = `${x},${y}`;
 
             boardContainer.append(tile);
@@ -33,7 +34,12 @@ export default function createShipPlacementScreen(
         fn: shipPlacementScreenFn,
     });
 
-    shipPlacementScreen.append(title, boardContainer, playButton);
+    const backButton = createButton({
+        text: "Back To Start Screen",
+        fn: goBackFn,
+    });
+
+    shipPlacementScreen.append(title, boardContainer, playButton, backButton);
 
     return shipPlacementScreen;
 }

@@ -2,44 +2,48 @@ import createPlayer from "../models/Player";
 import createUI from "../views/DOM";
 
 export default function startGame() {
-    const UI = createUI();
+  const UI = createUI();
 
-    const handlePlayGameClick = (p1, p2) => {};
+  const handlePlayGameClick = (p1, p2) => {};
 
-    const handleStartGameClick = (p1Behavior, p2Behavior) => {
-        if (p1Behavior === p2Behavior) {
-            UI.updateMessageBoard(
-                "Sorry, this feature currently not available!",
-            );
-            return;
-        }
+  const handleBackClick = () => {
+    UI.renderStartScreen(handleStartGameClick);
+  };
 
-        const isComputer = (behavior) => behavior === "Computer";
+  const handleStartGameClick = (p1Behavior, p2Behavior) => {
+    if (p1Behavior === p2Behavior) {
+      UI.updateMessageBoard("Sorry, this feature currently not available!");
+      return;
+    }
 
-        const playerOne = createPlayer({
-            name: "Player One",
-            isComputer: isComputer(p1Behavior),
-        });
+    const isComputer = (behavior) => behavior === "Computer";
 
-        const playerTwo = createPlayer({
-            name: "Player Two",
-            isComputer: isComputer(p2Behavior),
-        });
+    const playerOne = createPlayer({
+      name: "Player One",
+      isComputer: isComputer(p1Behavior),
+    });
 
-        const humanPlayers = [];
+    const playerTwo = createPlayer({
+      name: "Player Two",
+      isComputer: isComputer(p2Behavior),
+    });
 
-        if (isComputer(p1Behavior) === false) {
-            humanPlayers.push(playerOne);
-        }
+    const humanPlayers = [];
 
-        if (isComputer(p2Behavior) === false) {
-            humanPlayers.push(playerTwo);
-        }
+    if (isComputer(p1Behavior) === false) {
+      humanPlayers.push(playerOne);
+    }
 
-        UI.renderShipPlacementScreen(humanPlayers[0], () => {
-            handlePlayGameClick(playerOne, playerTwo);
-        });
-    };
+    if (isComputer(p2Behavior) === false) {
+      humanPlayers.push(playerTwo);
+    }
 
-    UI.init(handleStartGameClick);
+    UI.renderShipPlacementScreen(
+      humanPlayers[0],
+      handlePlayGameClick,
+      handleBackClick,
+    );
+  };
+
+  UI.init(handleStartGameClick);
 }

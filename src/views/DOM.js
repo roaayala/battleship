@@ -5,56 +5,62 @@ import createShipPlacementScreen from "./mains/ShipPlacementScreen";
 import createStartScreen from "./mains/StartScreen";
 
 export default function createUI() {
-    const app = document.getElementById("app");
+  const app = document.getElementById("app");
 
-    let main;
+  let main;
 
-    const init = (startGameFn) => {
-        // static
-        const header = createHeader();
-        const footer = createFooter();
+  const emptyMain = () => {
+    main.innerHTML = "";
+  };
 
-        // dynamic
-        main = document.createElement("main");
-        main.id = "main";
-        main.className = "main";
+  const renderStartScreen = (startGameFn) => {
+    emptyMain();
+    const startScreen = createStartScreen(startGameFn);
+    main.append(startScreen);
+  };
 
-        const startScreen = createStartScreen(startGameFn);
+  const init = (startGameFn) => {
+    // static
+    const header = createHeader();
+    const footer = createFooter();
 
-        main.append(startScreen);
-        app.append(header, main, footer);
-    };
+    // dynamic
+    main = document.createElement("main");
+    main.id = "main";
+    main.className = "main";
 
-    const renderShipPlacementScreen = (player, shipPlacementFn) => {
-        emptyMain();
+    app.append(header, main, footer);
+    renderStartScreen(startGameFn);
+  };
 
-        const shipPlacementScreen = createShipPlacementScreen(
-            player,
-            shipPlacementFn,
-        );
+  const renderShipPlacementScreen = (player, shipPlacementFn, goBackFn) => {
+    emptyMain();
 
-        main.append(shipPlacementScreen);
-    };
+    const shipPlacementScreen = createShipPlacementScreen(
+      player,
+      shipPlacementFn,
+      goBackFn,
+    );
 
-    const updateGameboards = () => {
-        emptyMain();
-    };
+    main.append(shipPlacementScreen);
+  };
 
-    const emptyMain = () => {
-        main.innerHTML = "";
-    };
+  const updateGameboards = () => {
+    emptyMain();
+  };
 
-    const updateMessageBoard = (text) => {
-        const messageBoard = createMessageBoard({ text });
+  const updateMessageBoard = (text) => {
+    const messageBoard = createMessageBoard({ text });
 
-        app.append(messageBoard);
-        messageBoard.showModal();
-    };
+    app.append(messageBoard);
+    messageBoard.showModal();
+  };
 
-    return {
-        init,
-        updateMessageBoard,
-        updateGameboards,
-        renderShipPlacementScreen,
-    };
+  return {
+    init,
+    updateMessageBoard,
+    updateGameboards,
+    renderStartScreen,
+    renderShipPlacementScreen,
+  };
 }
