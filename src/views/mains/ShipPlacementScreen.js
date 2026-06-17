@@ -5,7 +5,6 @@ export default function createShipPlacementScreen(
     shipPlacementScreenFn,
 ) {
     const boardData = player.playerGameboard.getBoard();
-    console.log(boardData);
 
     const shipPlacementScreen = document.createElement("div");
     shipPlacementScreen.className = "ship-placement";
@@ -14,14 +13,25 @@ export default function createShipPlacementScreen(
     title.className = "ship-placement__title";
     title.textContent = "Arrange Yours Ship Commander!";
 
-    const boarContainer = document.createElement("div");
+    const boardContainer = document.createElement("div");
+    boardContainer.className = "ship-placement__container";
+
+    boardData.forEach((row, y) => {
+        row.forEach((cell, x) => {
+            const tile = document.createElement("div");
+            tile.className = "ship-placemenet__tile";
+            tile.textContent = `${x},${y}`;
+
+            boardContainer.append(tile);
+        });
+    });
 
     const playButton = createButton({
         text: "Play Game",
         fn: shipPlacementScreenFn,
     });
 
-    shipPlacementScreen.append(title, boarContainer, playButton);
+    shipPlacementScreen.append(title, boardContainer, playButton);
 
     return shipPlacementScreen;
 }
