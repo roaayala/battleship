@@ -1,45 +1,52 @@
 import createButton from "../components/Button";
 
 export default function createShipPlacementScreen(
-    player,
-    shipPlacementScreenFn,
-    goBackFn,
+  player,
+  shipPlacementScreenFn,
+  goBackFn,
 ) {
-    const boardData = player.playerGameboard.getBoard();
+  const boardData = player.playerGameboard.getBoard();
 
-    const shipPlacementScreen = document.createElement("div");
-    shipPlacementScreen.className = "ship-placement";
+  const availableShips = [
+    { name: "carrier", length: 5 },
+    { name: "battleship", length: 4 },
+    { name: "destroyer", length: 3 },
+    { name: "submarine", length: 3 },
+    { name: "patrol boat", length: 2 },
+  ];
 
-    const title = document.createElement("h2");
-    title.className = "ship-placement__title";
-    title.textContent = ` Arrange Yours Ship ${player.name}!`;
+  const shipPlacementScreen = document.createElement("div");
+  shipPlacementScreen.className = "ship-placement";
 
-    const boardContainer = document.createElement("div");
-    boardContainer.className = "ship-placement__container";
+  const title = document.createElement("h2");
+  title.className = "ship-placement__title";
+  title.textContent = ` Arrange Yours Ship ${player.name}!`;
 
-    boardData.forEach((row, y) => {
-        row.forEach((cell, x) => {
-            const tile = document.createElement("div");
-            tile.className = "ship-placement__tile";
-            tile.dataset.x = x;
-            tile.dataset.y = y;
-            tile.textContent = `${x},${y}`;
+  const boardContainer = document.createElement("div");
+  boardContainer.className = "ship-placement__container";
 
-            boardContainer.append(tile);
-        });
+  boardData.forEach((row, y) => {
+    row.forEach((cell, x) => {
+      const tile = document.createElement("div");
+      tile.className = "ship-placement__tile";
+      tile.dataset.x = x;
+      tile.dataset.y = y;
+
+      boardContainer.append(tile);
     });
+  });
 
-    const playButton = createButton({
-        text: "Play Game",
-        fn: shipPlacementScreenFn,
-    });
+  const playButton = createButton({
+    text: "Play Game",
+    fn: shipPlacementScreenFn,
+  });
 
-    const backButton = createButton({
-        text: "Back To Start Screen",
-        fn: goBackFn,
-    });
+  const backButton = createButton({
+    text: "Back To Start Screen",
+    fn: goBackFn,
+  });
 
-    shipPlacementScreen.append(title, boardContainer, playButton, backButton);
+  shipPlacementScreen.append(title, boardContainer, playButton, backButton);
 
-    return shipPlacementScreen;
+  return shipPlacementScreen;
 }
