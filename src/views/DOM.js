@@ -26,9 +26,7 @@ export default function createUI() {
     };
 
     const updateMessageBoard = (text) => {
-        const messageBoard = createMessageBoard({
-            text,
-        });
+        const messageBoard = createMessageBoard({ text });
 
         app.append(messageBoard);
         messageBoard.showModal();

@@ -1,3 +1,4 @@
+import createPlayer from "../models/Player";
 import createUI from "../views/DOM";
 
 export default function startGame() {
@@ -14,6 +15,20 @@ export default function startGame() {
             );
             return;
         }
+
+        const isComputer = (behavior) => behavior === "Computer";
+
+        const playerOne = createPlayer({
+            name: "Player One",
+            isComputer: isComputer(p1Behavior),
+        });
+
+        const playerTwo = createPlayer({
+            name: "Player Two",
+            isComputer: isComputer(p2Behavior),
+        });
+
+        console.log(playerOne, playerTwo);
 
         UI.renderShipPlacementScreen(handlePlayGameClick);
     };
