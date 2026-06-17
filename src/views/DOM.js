@@ -25,9 +25,9 @@ export default function createUI() {
         app.append(header, main, footer);
     };
 
-    const updateMessageBoard = () => {
+    const updateMessageBoard = (text) => {
         const messageBoard = createMessageBoard({
-            text: "Sorry, features human vs human or computer vs computer currenly not available!",
+            text,
         });
 
         app.append(messageBoard);

@@ -9,7 +9,9 @@ export default function startGame() {
 
     const handleStartGameClick = (p1Behavior, p2Behavior) => {
         if (p1Behavior === p2Behavior) {
-            UI.updateMessageBoard();
+            UI.updateMessageBoard(
+                "Sorry, this feature currently not available!",
+            );
             return;
         }
 
