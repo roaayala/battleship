@@ -1,3 +1,4 @@
+import createMessageBoard from "./components/MessageBoard";
 import createFooter from "./Footer";
 import createHeader from "./Header";
 import createShipPlacementScreen from "./mains/ShipPlacementScreen";
@@ -16,11 +17,21 @@ export default function createUI() {
         // dynamic
         main = document.createElement("main");
         main.id = "main";
+        main.className = "main";
 
         const startScreen = createStartScreen(startGameFn);
 
         main.append(startScreen);
         app.append(header, main, footer);
+    };
+
+    const updateMessageBoard = () => {
+        const messageBoard = createMessageBoard({
+            text: "Sorry, features human vs human or computer vs computer currenly not available!",
+        });
+
+        app.append(messageBoard);
+        messageBoard.showModal();
     };
 
     const renderShipPlacementScreen = (shipPlacementFn) => {
@@ -33,8 +44,10 @@ export default function createUI() {
     const updateGameboards = () => {
         main.innerHTML = "";
     };
+
     return {
         init,
+        updateMessageBoard,
         updateGameboards,
         renderShipPlacementScreen,
     };
