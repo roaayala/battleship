@@ -19,7 +19,9 @@ export default function createShipPlacementScreen(
     boardData.forEach((row, y) => {
         row.forEach((cell, x) => {
             const tile = document.createElement("div");
-            tile.className = "ship-placemenet__tile";
+            tile.className = "ship-placement__tile";
+            tile.dataset.x = x;
+            tile.dataset.y = x;
             tile.textContent = `${x},${y}`;
 
             boardContainer.append(tile);

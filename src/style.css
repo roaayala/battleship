@@ -9,3 +9,14 @@
 .main {
     flex: 1;
 }
+
+.ship-placement__container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+}
+
+.ship-placement__tile {
+    border: 1px solid black;
+    aspect-ratio: 1 / 1;
+}
