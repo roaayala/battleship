@@ -1,16 +1,19 @@
 import createButton from "../components/Button";
 
 export default function createShipPlacementScreen(shipPlacementScreenFn) {
-  const shipPlacementScreen = document.createElement("div");
+    const shipPlacementScreen = document.createElement("div");
 
-  const playButton = createButton({
-    text: "Play Game",
-    fn: () => {
-      shipPlacementScreenFn();
-    },
-  });
+    const title = document.createElement("h2");
+    title.textContent = "Arrange Yours Ship Commander!";
 
-  shipPlacementScreen.append(playButton);
+    const playButton = createButton({
+        text: "Play Game",
+        fn: () => {
+            shipPlacementScreenFn();
+        },
+    });
 
-  return shipPlacementScreen;
+    shipPlacementScreen.append(title, playButton);
+
+    return shipPlacementScreen;
 }

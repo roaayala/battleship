@@ -1,19 +1,19 @@
 import createUI from "../views/DOM";
 
 export default function startGame() {
-  const UI = createUI();
+    const UI = createUI();
 
-  const handlePlayGameClick = () => {
-    console.log("To gameboard screen");
-  };
+    const handlePlayGameClick = () => {
+        console.log("To gameboard screen");
+    };
 
-  const handleStartGameClick = (p1Behavior, p2Behavior) => {
-    if (p1Behavior === p2Behavior) {
-      return;
-    }
+    const handleStartGameClick = (p1Behavior, p2Behavior) => {
+        if (p1Behavior === p2Behavior) {
+            return;
+        }
 
-    UI.renderShipPlacementScreen(handlePlayGameClick);
-  };
+        UI.renderShipPlacementScreen(handlePlayGameClick);
+    };
 
-  UI.init(handleStartGameClick);
+    UI.init(handleStartGameClick);
 }
