@@ -4,9 +4,7 @@ import createUI from "../views/DOM";
 export default function startGame() {
     const UI = createUI();
 
-    const handlePlayGameClick = () => {
-        console.log("To gameboard screen");
-    };
+    const handlePlayGameClick = (p1, p2) => {};
 
     const handleStartGameClick = (p1Behavior, p2Behavior) => {
         if (p1Behavior === p2Behavior) {
@@ -28,9 +26,19 @@ export default function startGame() {
             isComputer: isComputer(p2Behavior),
         });
 
-        console.log(playerOne, playerTwo);
+        const humanPlayers = [];
 
-        UI.renderShipPlacementScreen(handlePlayGameClick);
+        if (isComputer(p1Behavior) === false) {
+            humanPlayers.push(playerOne);
+        }
+
+        if (isComputer(p2Behavior) === false) {
+            humanPlayers.push(playerTwo);
+        }
+
+        UI.renderShipPlacementScreen(humanPlayers[0], () => {
+            handlePlayGameClick(playerOne, playerTwo);
+        });
     };
 
     UI.init(handleStartGameClick);

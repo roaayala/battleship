@@ -1,7 +1,6 @@
 # TODOs
 ---
 ## WIP
-- [ ] Add close button in MessageBoard component
 - [ ] Randomize ship placement
 - [ ] Reset ship placement
 - [ ] Back button in ShipPlacementSreen
@@ -14,3 +13,4 @@
 ## DONE
 - [x] Message if player behavior is human vs human and computer vs computer
 - [x] Player object creation on 'Start Game' button click
+- [x] Add close button in MessageBoard component

@@ -25,22 +25,30 @@ export default function createUI() {
         app.append(header, main, footer);
     };
 
-    const updateMessageBoard = (text) => {
-        const messageBoard = createMessageBoard({ text });
+    const renderShipPlacementScreen = (player, shipPlacementFn) => {
+        emptyMain();
 
-        app.append(messageBoard);
-        messageBoard.showModal();
-    };
-
-    const renderShipPlacementScreen = (shipPlacementFn) => {
-        main.innerHTML = "";
-        const shipPlacementScreen = createShipPlacementScreen(shipPlacementFn);
+        const shipPlacementScreen = createShipPlacementScreen(
+            player,
+            shipPlacementFn,
+        );
 
         main.append(shipPlacementScreen);
     };
 
     const updateGameboards = () => {
+        emptyMain();
+    };
+
+    const emptyMain = () => {
         main.innerHTML = "";
+    };
+
+    const updateMessageBoard = (text) => {
+        const messageBoard = createMessageBoard({ text });
+
+        app.append(messageBoard);
+        messageBoard.showModal();
     };
 
     return {
