@@ -44,9 +44,12 @@ export default function createGameboard() {
     return true;
   };
 
+  const receiveAttack = (xAxis, yAxis) => {};
+
   return {
     getBoard: () => board,
     getMissedAttacks: () => missedAttackRecord,
+    getShipsOnBoard: () => shipsOnBoard,
     placeShip,
   };
 }
