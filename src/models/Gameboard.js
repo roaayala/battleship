@@ -44,12 +44,40 @@ export default function createGameboard() {
     return true;
   };
 
-  const receiveAttack = (xAxis, yAxis) => {};
+  const receiveAttack = (xAxis, yAxis) => {
+    if (xAxis < 0 || xAxis > 9 || yAxis < 0 || yAxis > 9) return;
+
+    let attackResult;
+
+    board = board.map((row, y) => {
+      return row.map((cell, x) => {
+        if (xAxis === x && yAxis === y) {
+          if (cell !== null && cell !== "miss") {
+            cell.hit();
+            attackResult = { isHit: true, coordinate: `${xAxis}, ${yAxis}` };
+
+            return cell; // return cell if true
+          } else {
+            cell = "miss";
+            missedAttackRecord = [...missedAttackRecord, [xAxis, yAxis]];
+            attackResult = { isHit: false, coordinate: `${xAxis}, ${yAxis}` };
+
+            return cell; // return cell if false
+          }
+        } else {
+          return cell; // everthing that happens
+        }
+      });
+    });
+
+    return attackResult;
+  };
 
   return {
     getBoard: () => board,
     getMissedAttacks: () => missedAttackRecord,
     getShipsOnBoard: () => shipsOnBoard,
     placeShip,
+    receiveAttack,
   };
 }
