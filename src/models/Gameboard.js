@@ -10,11 +10,17 @@ export default function createGameboard() {
 
   const placeShip = ({ shipLength, xAxis, yAxis, isVertical = false }) => {
     // out of bounds
-    if (xAxis < 0 || xAxis > 9 || yAxis < 0 || yAxis > 9) {
-      return false;
-    }
+    if (xAxis < 0 || xAxis > 9 || yAxis < 0 || yAxis > 9) return false; // x or y is less or greater than
+    if (isVertical && yAxis + shipLength > 10) return false; // vertical placement should not exceed 10 length
+    if (!isVertical && xAxis + shipLength > 10) return false; // horizontal placement shoul not exceed 10 length
 
     // overlap
+    for (let i = 0; i < shipLength; i++) {
+      const checkY = isVertical ? yAxis + i : yAxis; // if true, move in vertical if not lock y
+      const checkX = isVertical ? xAxis : xAxis + i; // if true, move in horizontal if not lock x
+
+      if (board[checkY][checkX] !== null) return false;
+    }
 
     const newShip = createShip(shipLength);
 
