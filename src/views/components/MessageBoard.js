@@ -1,26 +1,26 @@
 import createButton from "./Button";
 
 export default function createMessageBoard({ text }) {
-    const dialog = document.createElement("dialog");
-    dialog.className = "dialog";
-    dialog.textContent = text;
+  const dialog = document.createElement("dialog");
+  dialog.className = "dialog";
+  dialog.textContent = text;
 
-    // close button
-    const closeButton = createButton({
-        text: "Close",
-        fn: () => {
-            dialog.remove();
-        },
-    });
+  // close button
+  const closeButton = createButton({
+    text: "Close",
+    fn: () => {
+      dialog.remove();
+    },
+  });
 
-    // title
-    // message element
+  // title
+  // message element
 
-    dialog.addEventListener("close", () => {
-        dialog.remove();
-    });
+  dialog.addEventListener("close", () => {
+    dialog.remove();
+  });
 
-    dialog.append(closeButton);
+  dialog.append(closeButton);
 
-    return dialog;
+  return dialog;
 }
