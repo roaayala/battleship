@@ -73,11 +73,14 @@ export default function createGameboard() {
     return attackResult;
   };
 
+  const allShipsSunk = () => shipsOnBoard.every((ship) => ship.isSunk());
+
   return {
     getBoard: () => board,
     getMissedAttacks: () => missedAttackRecord,
     getShipsOnBoard: () => shipsOnBoard,
     placeShip,
     receiveAttack,
+    allShipsSunk,
   };
 }
