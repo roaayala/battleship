@@ -1,15 +1,31 @@
 import createShip from "./Ship.js";
 
 export default function createGameboard() {
-  const board = Array(10)
+  let board = Array(10)
     .fill(null)
     .map(() => Array(10).fill(null));
 
-  const placeShip = (shipLength) => {
+  let missedAttackRecord = [];
+  let shipsOnBoard = [];
+
+  const placeShip = ({ shipLength, xAxis, yAxis, isVertical = false }) => {
     const newShip = createShip(shipLength);
+
+    shipsOnBoard = [...shipsOnBoard, newShip];
+
+
+    const updatedBoard = board.map((row, y) => {
+      return row.map((cell, x) => {
+        const shipPath = isVertical ? x === xAxis:;
+        })
+      });
+
+    board = updatedBoard;
+
   };
 
   return {
     getBoard: () => board,
+    getMissedAttacks: () => missedAttackRecord,
   };
 }
