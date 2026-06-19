@@ -1,5 +1,5 @@
-export default function startGame(view) {
-  const UI = view;
+export default function startGame(view, player) {
+  const UI = view();
 
   UI.initialRender();
 }
