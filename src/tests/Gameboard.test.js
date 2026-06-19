@@ -102,3 +102,39 @@ test("placeShip", () => {
   });
   expect(shipHorizontal4).toBe(false);
 });
+
+test("receiveAttack", () => {
+  const gameboard = createGameboard();
+
+  expect(gameboard.receiveAttack(-1, 1)).toBe(undefined);
+
+  const att1 = gameboard.receiveAttack(1, 1);
+  expect(att1.isHit).toBe(false);
+  expect(att1.coordinate).toStrictEqual([1, 1]);
+  expect(att1).toStrictEqual({ isHit: false, coordinate: [1, 1] });
+  expect(gameboard.getMissedAttacks().length).toBe(1);
+  expect(gameboard.getMissedAttacks()[0]).toStrictEqual([1, 1]);
+  expect(gameboard.getBoard()[1][1]).toBe("miss");
+
+  const att3 = gameboard.receiveAttack(1, 1);
+  expect(gameboard.getMissedAttacks().length).toBe(1);
+
+  const ship = gameboard.placeShip({
+    shipLength: 3,
+    xAxis: 3,
+    yAxis: 3,
+    isVertical: true,
+  });
+  const att2 = gameboard.receiveAttack(3, 3);
+  expect(att2.isHit).toBe(true);
+  expect(att2.coordinate).toStrictEqual([3, 3]);
+  expect(att2).toStrictEqual({ isHit: true, coordinate: [3, 3] });
+  expect(gameboard.getMissedAttacks().length).toBe(1);
+  expect(gameboard.getMissedAttacks()[1]).toBe(undefined);
+  expect(gameboard.getShipsOnBoard()[0].getHitCount()).toBe(1);
+
+  gameboard.receiveAttack(3, 4);
+  expect(gameboard.allShipsSunk()).toBe(false);
+  gameboard.receiveAttack(3, 5);
+  expect(gameboard.allShipsSunk()).toBe(true);
+});

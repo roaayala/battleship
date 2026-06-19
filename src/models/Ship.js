@@ -3,7 +3,7 @@ export default function createShip(length) {
 
   const hit = () => hitCount++;
 
-  const isSunk = () => length >= hitCount;
+  const isSunk = () => hitCount >= length;
 
   return {
     getLength: () => length,

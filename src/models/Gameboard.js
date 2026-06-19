@@ -54,13 +54,15 @@ export default function createGameboard() {
         if (xAxis === x && yAxis === y) {
           if (cell !== null && cell !== "miss") {
             cell.hit();
-            attackResult = { isHit: true, coordinate: `${xAxis}, ${yAxis}` };
+            attackResult = { isHit: true, coordinate: [xAxis, yAxis] };
 
             return cell; // return cell if true
+          } else if (cell === "miss") {
+            return cell;
           } else {
             cell = "miss";
             missedAttackRecord = [...missedAttackRecord, [xAxis, yAxis]];
-            attackResult = { isHit: false, coordinate: `${xAxis}, ${yAxis}` };
+            attackResult = { isHit: false, coordinate: [xAxis, yAxis] };
 
             return cell; // return cell if false
           }
