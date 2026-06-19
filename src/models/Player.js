@@ -22,10 +22,16 @@ export default function createPlayer({ name, isHuman = true }) {
     enemyGameboard.receiveAttack(x, y);
   };
 
+  // for human player
+  const attack = (enemyGameboard, x, y) => {
+    enemyGameboard.receiveAttack(x, y);
+  };
+
   return {
     name,
     isHuman,
     getGameboard: () => board,
     randomizeAttack,
+    attack,
   };
 }

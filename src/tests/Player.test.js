@@ -10,7 +10,7 @@ test("player props", () => {
   expect(p1.getGameboard().getMissedAttacks().length).toBe(0);
 });
 
-test("randomizeAttack", () => {
+test("randomizeAttack and attack", () => {
   const p2 = createPlayer({ name: "Player Two", isHuman: false });
   const computerTarget = createGameboard();
   p2.randomizeAttack(computerTarget);
@@ -18,4 +18,6 @@ test("randomizeAttack", () => {
 
   const p1 = createPlayer({ name: "Player One", isHuman: true });
   const humanTarget = createGameboard();
+  p1.attack(humanTarget, 1, 1);
+  expect(humanTarget.getMissedAttacks().length).toBe(1);
 });
