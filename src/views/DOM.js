@@ -3,6 +3,8 @@ export default function renderUI() {
 
   let main;
 
+  const resetContainer = (el) => (el.innerHTML = "");
+
   const initialRender = () => {};
   return { initialRender };
 }
