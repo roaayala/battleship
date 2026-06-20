@@ -2,7 +2,7 @@ import { getValueById } from "../../utilities/helpers";
 import createButton from "../components/Button";
 import createSelectElement from "../components/SelectElement";
 
-export default function createStartScreen() {
+export default function createStartScreen(startScreenFn) {
   const startScreen = document.createElement("div");
   startScreen.className = "start-screen";
 
@@ -33,12 +33,12 @@ export default function createStartScreen() {
   startScreenFooter.className = "start-screen__footer";
 
   const arrangeShipButton = createButton({
-    text: "Arrange Ship",
+    text: "Start Game",
     fn: () => {
-      console.log({
-        p1: getValueById("playerOneBehavior"),
-        p2: getValueById("playerTwoBehavior"),
-      });
+      startScreenFn(
+        getValueById("playerOneBehavior"),
+        getValueById("playerTwoBehavior"),
+      );
     },
   });
 

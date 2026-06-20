@@ -7,7 +7,9 @@ export default function renderUI() {
 
   let main;
 
-  const resetContainer = (el) => (el.innerHTML = "");
+  const resetContainer = () => {
+    main.innerHTML = "";
+  };
 
   const initialRender = () => {
     // header
@@ -25,10 +27,10 @@ export default function renderUI() {
     renderStartScreen();
   };
 
-  const renderStartScreen = () => {
-    resetContainer(main);
+  const renderStartScreen = (startScreenFn) => {
+    resetContainer();
 
-    const startScreen = createStartScreen();
+    const startScreen = createStartScreen(startScreenFn);
 
     main.append(startScreen);
   };
