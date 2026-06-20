@@ -3,7 +3,7 @@ import createMessageBoard from "../views/components/MessageBoard";
 export default function startGame(view, model) {
   const UI = view();
 
-  const randomizeShipPlacement = () => {};
+  const randomizeShipPlacement = (gameboard) => {};
 
   const onStartHandler = (p1, p2) => {
     if (p1 === p2) {
@@ -20,7 +20,6 @@ export default function startGame(view, model) {
     const playerTwo = model({ name: "Player Two", isHuman: p2 === "human" });
 
     console.log(playerOne, playerTwo);
-    // transition to ShipPlacementScreen
   };
 
   const onReadyHandler = () => {

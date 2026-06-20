@@ -1,4 +1,4 @@
-export default function createShip(length) {
+export default function createShip({ name, length }) {
   let hitCount = 0;
 
   const hit = () => hitCount++;
@@ -6,7 +6,12 @@ export default function createShip(length) {
   const isSunk = () => hitCount >= length;
 
   return {
-    getLength: () => length,
+    get name() {
+      return name;
+    },
+    get length() {
+      return length;
+    },
     getHitCount: () => hitCount,
     hit,
     isSunk,
