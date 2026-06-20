@@ -1,3 +1,4 @@
+import { getValueById } from "../../utilities/helpers";
 import createButton from "../components/Button";
 import createSelectElement from "../components/SelectElement";
 
@@ -34,7 +35,10 @@ export default function createStartScreen() {
   const arrangeShipButton = createButton({
     text: "Arrange Ship",
     fn: () => {
-      console.log({ p1: playerOneSetup.value, p2: playerTwoSetup.value });
+      console.log({
+        p1: getValueById("playerOneBehavior"),
+        p2: getValueById("playerTwoBehavior"),
+      });
     },
   });
 
