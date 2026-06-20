@@ -9,7 +9,7 @@ export default function renderUI() {
 
   const resetContainer = (el) => (el.innerHTML = "");
 
-  const initialRender = (startScreenFn) => {
+  const initialRender = () => {
     // header
     const header = createHeader();
 
@@ -17,16 +17,16 @@ export default function renderUI() {
     const footer = createFooter();
 
     // main
-    startScreenFn();
+    main = document.createElement("main");
+    main.className = "main";
 
     appContainer.append(header, main, footer);
+
+    renderStartScreen();
   };
 
   const renderStartScreen = () => {
-    resetContainer(appContainer);
-
-    main = document.createElement("main");
-    main.className = "main";
+    resetContainer(main);
 
     const startScreen = createStartScreen();
 
