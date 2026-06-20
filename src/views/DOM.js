@@ -1,5 +1,6 @@
 import createFooter from "./Footer";
 import createHeader from "./Header";
+import createStartScreen from "./mains/StartScreen";
 
 export default function renderUI() {
   const appContainer = document.getElementById("app");
@@ -8,7 +9,7 @@ export default function renderUI() {
 
   const resetContainer = (el) => (el.innerHTML = "");
 
-  const initialRender = () => {
+  const initialRender = (startScreenFn) => {
     // header
     const header = createHeader();
 
@@ -16,13 +17,21 @@ export default function renderUI() {
     const footer = createFooter();
 
     // main
-    main = document.createElement("main");
-    main.className = "main";
+    startScreenFn();
 
     appContainer.append(header, main, footer);
   };
 
-  const renderStartScreen = () => {};
+  const renderStartScreen = () => {
+    resetContainer(appContainer);
+
+    main = document.createElement("main");
+    main.className = "main";
+
+    const startScreen = createStartScreen();
+
+    main.append(startScreen);
+  };
 
   const renderShipPlacementScreen = () => {};
 

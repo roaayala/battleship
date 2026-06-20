@@ -1,5 +1,5 @@
 export default function startGame(view, model) {
   const UI = view();
 
-  UI.initialRender();
+  UI.initialRender(UI.renderStartScreen);
 }
