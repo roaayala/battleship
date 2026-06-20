@@ -20,6 +20,7 @@ export default function renderUI() {
 
     // main
     main = document.createElement("main");
+    main.id = "main";
     main.className = "main";
 
     appContainer.append(header, main, footer);
@@ -41,11 +42,17 @@ export default function renderUI() {
 
   const renderGameOverScreen = () => {};
 
+  const showMessageBoard = (messageBoard) => {
+    main.append(messageBoard);
+    messageBoard.showModal();
+  };
+
   return {
     initialRender,
     renderStartScreen,
     renderShipPlacementScreen,
     renderBattleScreen,
     renderGameOverScreen,
+    showMessageBoard,
   };
 }
