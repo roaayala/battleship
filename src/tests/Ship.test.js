@@ -1,9 +1,9 @@
 import createShip from "../models/Ship";
 
 test("length", () => {
-  const ship = createShip(5);
+  const ship = createShip({ name: "Destroyer", length: 5 });
 
-  expect(ship.getLength()).toBe(5);
+  expect(ship.length).toBe(5);
 });
 
 test("hit and hitCount", () => {
@@ -15,7 +15,7 @@ test("hit and hitCount", () => {
 });
 
 test("isSunk", () => {
-  const ship = createShip(5);
+  const ship = createShip({ name: "Destroyer", length: 5 });
 
   expect(ship.isSunk()).toBe(false);
 
