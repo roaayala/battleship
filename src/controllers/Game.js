@@ -58,9 +58,28 @@ export default function startGame(view, model) {
       randomizeShipPlacement(playerTwo.getGameboard());
     }
 
-    UI.renderShipPlacementScreen(humanPlayers, onReadyHandler, () => {
-      UI.renderStartScreen(onStartHandler);
-    });
+    onShipPlacementPhase(humanPlayers, 0);
+  };
+
+  const onShipPlacementPhase = (humanPlayers, currentIndex) => {
+    if (currentIndex >= humanPlayers.length) {
+      // if human vs comp or comp vs human
+
+      onReadyHandler(humanPlayers);
+      return;
+    }
+
+    const currentPlayer = humanPlayers[currentIndex];
+
+    UI.renderShipPlacementScreen(
+      currentPlayer,
+      () => {
+        onShipPlacementPhase(humanPlayers, currentIndex + 1); // recursive, call this function for next human player
+      },
+      () => {
+        UI.renderStartScreen(onStartHandler);
+      },
+    );
   };
 
   const onReadyHandler = (players) => {
