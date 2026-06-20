@@ -12,10 +12,12 @@ test("board and getBoard", () => {
 
 test("placeShip", () => {
   const gameboard = createGameboard();
+  const ship = { name: "Destroyer", length: 5 };
+  const notValidShip = { name: "Destroyer", length: 6 };
 
   // vertical
   const shipVertical = gameboard.placeShip({
-    shipLength: 5,
+    ship,
     xAxis: 1,
     yAxis: 5,
     isVertical: true,
@@ -28,7 +30,7 @@ test("placeShip", () => {
   expect(co2).toBe(null);
 
   const shipVertical1 = gameboard.placeShip({
-    shipLength: 5,
+    ship,
     xAxis: 1,
     yAxis: 6,
     isVertical: true,
@@ -36,7 +38,7 @@ test("placeShip", () => {
   expect(shipVertical1).toBe(false);
 
   const shipVertical2 = gameboard.placeShip({
-    shipLength: 6,
+    ship: notValidShip,
     xAxis: 1,
     yAxis: 5,
     isVertical: true,
@@ -45,7 +47,7 @@ test("placeShip", () => {
 
   // horizontal
   const shipHorizontal = gameboard.placeShip({
-    shipLength: 5,
+    ship,
     xAxis: 5,
     yAxis: 1,
     isVertical: false,
@@ -53,7 +55,7 @@ test("placeShip", () => {
   expect(shipHorizontal).toBe(true);
 
   const shipHorizontal1 = gameboard.placeShip({
-    shipLength: 5,
+    ship,
     xAxis: 6,
     yAxis: 1,
     isVertical: false,
@@ -61,7 +63,7 @@ test("placeShip", () => {
   expect(shipHorizontal1).toBe(false);
 
   const shipHorizontal2 = gameboard.placeShip({
-    shipLength: 6,
+    ship: notValidShip,
     xAxis: 5,
     yAxis: 1,
     isVertical: false,
@@ -70,7 +72,7 @@ test("placeShip", () => {
 
   // overlap
   const shipVertical3 = gameboard.placeShip({
-    shipLength: 5,
+    ship,
     xAxis: 4,
     yAxis: 4,
     isVertical: true,
@@ -78,7 +80,7 @@ test("placeShip", () => {
   expect(shipVertical3).toBe(true);
 
   const shipHorizontal3 = gameboard.placeShip({
-    shipLength: 5,
+    ship,
     xAxis: 2,
     yAxis: 6,
     isVertical: false,
@@ -87,7 +89,7 @@ test("placeShip", () => {
 
   // oob
   const shipVertical4 = gameboard.placeShip({
-    shipLength: 5,
+    ship,
     xAxis: 4,
     yAxis: -1,
     isVertical: true,
@@ -95,7 +97,7 @@ test("placeShip", () => {
   expect(shipVertical4).toBe(false);
 
   const shipHorizontal4 = gameboard.placeShip({
-    shipLength: 5,
+    ship,
     xAxis: 11,
     yAxis: 4,
     isVertical: false,
@@ -120,7 +122,7 @@ test("receiveAttack", () => {
   expect(gameboard.getMissedAttacks().length).toBe(1);
 
   const ship = gameboard.placeShip({
-    shipLength: 3,
+    ship: { name: "Random", length: 3 },
     xAxis: 3,
     yAxis: 3,
     isVertical: true,

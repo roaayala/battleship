@@ -8,34 +8,34 @@ export default function createGameboard() {
   let missedAttackRecord = [];
   let shipsOnBoard = [];
 
-  const placeShip = ({ shipLength, xAxis, yAxis, isVertical = false }) => {
+  const placeShip = ({ ship, xAxis, yAxis, isVertical = false }) => {
     // out of bounds
     if (xAxis < 0 || xAxis > 9 || yAxis < 0 || yAxis > 9) return false; // x or y is less or greater than
-    if (isVertical && yAxis + shipLength > 10) return false; // vertical placement should not exceed 10 length
-    if (!isVertical && xAxis + shipLength > 10) return false; // horizontal placement shoul not exceed 10 length
+    if (isVertical && yAxis + ship.length > 10) return false; // vertical placement should not exceed 10 length
+    if (!isVertical && xAxis + ship.length > 10) return false; // horizontal placement shoul not exceed 10 length
 
     // overlap
-    for (let i = 0; i < shipLength; i++) {
+    for (let i = 0; i < ship.length; i++) {
       const checkY = isVertical ? yAxis + i : yAxis; // if true, move in vertical if not lock y
       const checkX = isVertical ? xAxis : xAxis + i; // if true, move in horizontal if not lock x
 
       if (board[checkY][checkX] !== null) return false;
     }
 
-    const newShip = createShip(shipLength);
+    const newShip = createShip({ ...ship });
 
     shipsOnBoard = [...shipsOnBoard, newShip];
 
     board = board.map((row, y) => {
       return row.map((cell, x) => {
-        // vertical: lock x, and y must greater than or equal yAxis, and y should less than yAxis plus  shipLength
+        // vertical: lock x, and y must greater than or equal yAxis, and y should less than yAxis plus  ship.length
 
-        // horizontal: lock y, and x must greather than or equal of xAxis, and x should less than xAxis + shiplength
+        // horizontal: lock y, and x must greather than or equal of xAxis, and x should less than xAxis + ship.length
         const shipPath = isVertical
           ? // lock x, put ship in static x on dynamic y
-            x === xAxis && y >= yAxis && y < yAxis + shipLength
+            x === xAxis && y >= yAxis && y < yAxis + ship.length
           : // lock y, put ship in dynamic x on static y
-            y === yAxis && x >= xAxis && x < xAxis + shipLength;
+            y === yAxis && x >= xAxis && x < xAxis + ship.length;
 
         return shipPath ? newShip : cell;
       });
