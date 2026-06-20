@@ -1,14 +1,16 @@
 import { getValueById } from "../../utilities/helpers";
 import createButton from "../components/Button";
+import createScreenTitle from "../components/ScreenTitle";
 import createSelectElement from "../components/SelectElement";
 
 export default function createStartScreen(startScreenFn) {
   const startScreen = document.createElement("div");
   startScreen.className = "start-screen";
 
-  const startScreenTitle = document.createElement("h2");
-  startScreenTitle.className = "start-screen__title";
-  startScreenTitle.textContent = "Player Setup";
+  const startScreenTitle = createScreenTitle({
+    text: "Player Setup",
+    style: "start-screen__title",
+  });
 
   const startScreenMain = document.createElement("main");
   startScreenMain.className = "start-screen__main";

@@ -1,6 +1,6 @@
-export default function createScreenTitle(text) {
+export default function createScreenTitle({ text, style }) {
   const screenTitle = document.createElement("h2");
-  screenTitle.className = "screen-title";
+  screenTitle.className = style;
   screenTitle.textContent = text;
 
   return screenTitle;
