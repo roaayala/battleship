@@ -1,7 +1,7 @@
 import createButton from "../components/Button";
 import createScreenTitle from "../components/ScreenTitle";
 
-export default function createShipPlacementScreen(readyFn, backFn) {
+export default function createShipPlacementScreen(players, readyFn, backFn) {
   const shipPlacementScreen = document.createElement("div");
   shipPlacementScreen.className = "ship-placement-screen";
 
@@ -16,7 +16,7 @@ export default function createShipPlacementScreen(readyFn, backFn) {
   const readyButton = createButton({
     text: "Ready to Fight",
     fn: () => {
-      readyFn();
+      readyFn(players);
     },
   });
 

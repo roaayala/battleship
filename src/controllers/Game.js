@@ -58,13 +58,13 @@ export default function startGame(view, model) {
       randomizeShipPlacement(playerTwo.getGameboard());
     }
 
-    UI.renderShipPlacementScreen(onReadyHandler, () => {
+    UI.renderShipPlacementScreen(humanPlayers, onReadyHandler, () => {
       UI.renderStartScreen(onStartHandler);
     });
   };
 
-  const onReadyHandler = () => {
-    console.log("to battle");
+  const onReadyHandler = (players) => {
+    console.log(players);
   };
 
   UI.initialRender();
