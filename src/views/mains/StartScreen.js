@@ -1,4 +1,5 @@
 import createButton from "../components/Button";
+import createSelectElement from "../components/SelectElement";
 
 export default function createStartScreen() {
   const startScreen = document.createElement("div");
@@ -9,13 +10,31 @@ export default function createStartScreen() {
   startScreenTitle.textContent = "Player Setup";
 
   const startScreenMain = document.createElement("main");
+  startScreenMain.className = "start-screen__main";
+
+  const playerBehavior = ["Human", "Computer"];
+
+  const playerOneSetup = createSelectElement({
+    arr: playerBehavior,
+    id: "playerOneBehavior",
+    labelText: "Player One is",
+  });
+
+  const playerTwoSetup = createSelectElement({
+    arr: playerBehavior,
+    id: "playerTwoBehavior",
+    labelText: "Player Two is",
+  });
+
+  startScreenMain.append(playerOneSetup, playerTwoSetup);
 
   const startScreenFooter = document.createElement("footer");
+  startScreenFooter.className = "start-screen__footer";
 
   const arrangeShipButton = createButton({
     text: "Arrange Ship",
     fn: () => {
-      console.log("test");
+      console.log({ p1: playerOneSetup.value, p2: playerTwoSetup.value });
     },
   });
 
