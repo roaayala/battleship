@@ -57,9 +57,12 @@ export default function startGame(view, model) {
     } else {
       randomizeShipPlacement(playerTwo.getGameboard());
     }
+
+    UI.renderShipPlacementScreen(onReadyHandler);
   };
 
-  const onReadyHandler = () => {
+  const onReadyHandler = (backFn) => {
+    console.log("test");
     // transition to BattleScreen
   };
 

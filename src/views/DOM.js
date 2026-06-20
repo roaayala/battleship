@@ -1,5 +1,6 @@
 import createFooter from "./Footer";
 import createHeader from "./Header";
+import createShipPlacementScreen from "./mains/ShipPlacementScreen";
 import createStartScreen from "./mains/StartScreen";
 
 export default function renderUI() {
@@ -36,7 +37,12 @@ export default function renderUI() {
     main.append(startScreen);
   };
 
-  const renderShipPlacementScreen = () => {};
+  const renderShipPlacementScreen = () => {
+    resetContainer();
+    const shipReplacementScreen = createShipPlacementScreen();
+
+    main.append(shipReplacementScreen);
+  };
 
   const renderBattleScreen = () => {};
 
