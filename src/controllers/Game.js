@@ -1,4 +1,4 @@
-export default function startGame(view, player) {
+export default function startGame(view, model) {
   const UI = view();
 
   UI.initialRender();
