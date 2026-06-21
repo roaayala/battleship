@@ -9,3 +9,18 @@
 .main {
     flex: 1;
 }
+
+.player-gameboard {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+}
+
+.player-gameboard__tile {
+    aspect-ratio: 1/1;
+    border: 1px solid black;
+}
+
+.player-gameboard__tile.ship-tile {
+    background-color: red;
+}

@@ -77,6 +77,10 @@ export default function startGame(view, model) {
         onShipPlacementPhase(humanPlayers, currentIndex + 1); // recursive, call this function for next human player
       },
       () => {
+        randomizeShipPlacement(currentPlayer.getGameboard());
+        onShipPlacementPhase(humanPlayers, currentIndex);
+      },
+      () => {
         UI.renderStartScreen(onStartHandler);
       },
     );

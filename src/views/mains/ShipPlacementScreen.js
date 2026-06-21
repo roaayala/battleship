@@ -1,7 +1,12 @@
 import createButton from "../components/Button";
 import createScreenTitle from "../components/ScreenTitle";
 
-export default function createShipPlacementScreen(player, readyFn, backFn) {
+export default function createShipPlacementScreen(
+  player,
+  readyFn,
+  randomizeFn,
+  backFn,
+) {
   const shipPlacementScreen = document.createElement("div");
   shipPlacementScreen.className = "ship-placement-screen";
 
@@ -22,13 +27,15 @@ export default function createShipPlacementScreen(player, readyFn, backFn) {
       tile.dataset.x = x;
       tile.dataset.y = y;
 
+      if (cell !== null) {
+        tile.classList.add("ship-tile");
+      }
+
       playerGameboard.append(tile);
     });
   });
 
-  playerGameboard.addEventListener("click", (e) => {
-    console.log(e.target);
-  });
+  playerGameboard.addEventListener("click", (e) => {});
 
   const shipPlacementScreenFooter = document.createElement("footer");
   shipPlacementScreenFooter.className = "ship-placement-screen__footer";
@@ -40,6 +47,13 @@ export default function createShipPlacementScreen(player, readyFn, backFn) {
     },
   });
 
+  const randomizeButton = createButton({
+    text: "Randomize",
+    fn: () => {
+      randomizeFn();
+    },
+  });
+
   const backButton = createButton({
     text: "Back to Player Setup",
     fn: () => {
@@ -47,7 +61,7 @@ export default function createShipPlacementScreen(player, readyFn, backFn) {
     },
   });
 
-  shipPlacementScreenFooter.append(backButton, readyButton);
+  shipPlacementScreenFooter.append(backButton, randomizeButton, readyButton);
 
   shipPlacementScreen.append(
     shipPlacementScreenTitle,
