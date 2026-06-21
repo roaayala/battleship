@@ -1,66 +1,64 @@
-import createMessageBoard from "./components/MessageBoard";
 import createFooter from "./Footer";
 import createHeader from "./Header";
 import createShipPlacementScreen from "./mains/ShipPlacementScreen";
 import createStartScreen from "./mains/StartScreen";
 
-export default function createUI() {
-  const app = document.getElementById("app");
+export default function renderUI() {
+  const appContainer = document.getElementById("app");
 
   let main;
 
-  const emptyMain = () => {
+  const resetContainer = () => {
     main.innerHTML = "";
   };
 
-  const renderStartScreen = (startGameFn) => {
-    emptyMain();
-    const startScreen = createStartScreen(startGameFn);
-    main.append(startScreen);
-  };
-
-  const init = (startGameFn) => {
-    // static
+  const initialRender = () => {
+    // header
     const header = createHeader();
+
+    // footer
     const footer = createFooter();
 
-    // dynamic
+    // main
     main = document.createElement("main");
     main.id = "main";
     main.className = "main";
 
-    app.append(header, main, footer);
-    renderStartScreen(startGameFn);
+    appContainer.append(header, main, footer);
+
+    renderStartScreen();
   };
 
-  const renderShipPlacementScreen = (player, shipPlacementFn, goBackFn) => {
-    emptyMain();
+  const renderStartScreen = (startScreenFn) => {
+    resetContainer();
 
-    const shipPlacementScreen = createShipPlacementScreen(
-      player,
-      shipPlacementFn,
-      goBackFn,
-    );
+    const startScreen = createStartScreen(startScreenFn);
 
-    main.append(shipPlacementScreen);
+    main.append(startScreen);
   };
 
-  const updateGameboards = () => {
-    emptyMain();
+  const renderShipPlacementScreen = (players, handler) => {
+    resetContainer();
+    const shipReplacementScreen = createShipPlacementScreen(players, handler);
+
+    main.append(shipReplacementScreen);
   };
 
-  const updateMessageBoard = (text) => {
-    const messageBoard = createMessageBoard({ text });
+  const renderBattleScreen = () => {};
 
-    app.append(messageBoard);
+  const renderGameOverScreen = () => {};
+
+  const showMessageBoard = (messageBoard) => {
+    main.append(messageBoard);
     messageBoard.showModal();
   };
 
   return {
-    init,
-    updateMessageBoard,
-    updateGameboards,
+    initialRender,
     renderStartScreen,
     renderShipPlacementScreen,
+    renderBattleScreen,
+    renderGameOverScreen,
+    showMessageBoard,
   };
 }

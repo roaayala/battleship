@@ -1,41 +1,51 @@
+import { getValueById } from "../../utilities/helpers";
 import createButton from "../components/Button";
-import createSelectPlayerBehavior from "../components/SelectPlayerBehavior";
+import createScreenTitle from "../components/ScreenTitle";
+import createSelectElement from "../components/SelectElement";
 
-export default function createStartScreen(startGameFn) {
-    const startScreen = document.createElement("div");
-    startScreen.className = "start-screen";
+export default function createStartScreen(startScreenFn) {
+  const startScreen = document.createElement("div");
+  startScreen.className = "start-screen";
 
-    const title = document.createElement("h2");
-    title.className = "select-player__title";
-    title.textContent = "Select Player Behavior";
+  const startScreenTitle = createScreenTitle({
+    text: "Player Setup",
+    style: "start-screen__title",
+  });
 
-    const selectPlayerOneBehavior = createSelectPlayerBehavior({
-        id: "playerOneBehavior",
-        labelText: "Player One Behavior",
-    });
+  const startScreenMain = document.createElement("main");
+  startScreenMain.className = "start-screen__main";
 
-    const selectPlayerTwoBehavior = createSelectPlayerBehavior({
-        id: "playerTwoBehavior",
-        labelText: "Player Two Behavior",
-    });
+  const playerBehavior = ["Human", "Computer"];
 
-    const startButton = createButton({
-        text: "Start Game",
-        fn: () => {
-            const p1Behavior =
-                document.getElementById("playerOneBehavior").value;
-            const p2Behavior =
-                document.getElementById("playerTwoBehavior").value;
+  const playerOneSetup = createSelectElement({
+    arr: playerBehavior,
+    id: "playerOneBehavior",
+    labelText: "Player One is",
+  });
 
-            startGameFn(p1Behavior, p2Behavior);
-        },
-    });
+  const playerTwoSetup = createSelectElement({
+    arr: playerBehavior,
+    id: "playerTwoBehavior",
+    labelText: "Player Two is",
+  });
 
-    startScreen.append(
-        title,
-        selectPlayerOneBehavior,
-        selectPlayerTwoBehavior,
-        startButton,
-    );
-    return startScreen;
+  startScreenMain.append(playerOneSetup, playerTwoSetup);
+
+  const startScreenFooter = document.createElement("footer");
+  startScreenFooter.className = "start-screen__footer";
+
+  const arrangeShipButton = createButton({
+    text: "Start Game",
+    fn: () => {
+      startScreenFn(
+        getValueById("playerOneBehavior"),
+        getValueById("playerTwoBehavior"),
+      );
+    },
+  });
+
+  startScreenFooter.append(arrangeShipButton);
+
+  startScreen.append(startScreenTitle, startScreenMain, startScreenFooter);
+  return startScreen;
 }

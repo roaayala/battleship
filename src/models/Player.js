@@ -1,32 +1,37 @@
 import createGameboard from "./Gameboard";
 
-export default function createPlayer({ name, isComputer = false }) {
-    const playerGameboard = createGameboard();
+export default function createPlayer({ name, isHuman = true }) {
+  const board = createGameboard();
 
-    const availableMoves = [];
+  // for non human player
+  const availableMoves = [];
 
-    if (isComputer) {
-        for (let y = 0; y < 10; y++) {
-            for (let x = 0; x < 10; x++) {
-                availableMoves.push([x, y]);
-            }
-        }
+  if (!isHuman) {
+    for (let y = 0; y < board.getBoard().length; y++) {
+      for (let x = 0; x < board.getBoard()[y].length; x++) {
+        availableMoves.push([x, y]);
+      }
     }
+  }
 
-    const randomAttack = (enemyGameboard) => {
-        if (!isComputer) return;
+  const randomizeAttack = (enemyGameboard) => {
+    const rIndex = Math.floor(Math.random() * availableMoves.length);
 
-        const randomIndex = Math.floor(Math.random() * availableMoves.length);
-        const [x, y] = availableMoves.splice(randomIndex, 1)[0];
-        const attack = enemyGameboard.receiveAttack(x, y);
+    const [x, y] = availableMoves.splice(rIndex, 1)[0];
 
-        return { attack, targetTile: [x, y] };
-    };
+    enemyGameboard.receiveAttack(x, y);
+  };
 
-    return {
-        playerGameboard,
-        name,
-        isComputer,
-        randomAttack,
-    };
+  // for human player
+  const attack = (enemyGameboard, x, y) => {
+    enemyGameboard.receiveAttack(x, y);
+  };
+
+  return {
+    name,
+    isHuman,
+    getGameboard: () => board,
+    randomizeAttack,
+    attack,
+  };
 }

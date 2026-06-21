@@ -1,67 +1,138 @@
 import createButton from "../components/Button";
+import createScreenTitle from "../components/ScreenTitle";
+import createShipGarage from "../components/ShipGarage";
 
 export default function createShipPlacementScreen(
   player,
-  shipPlacementScreenFn,
-  goBackFn,
+  { readyFn, randomizeFn, placeShipFn, backFn },
 ) {
-  const boardData = player.playerGameboard.getBoard();
-
-  const availableShips = [
-    { name: "Carrier", length: 5 },
-    { name: "Battleship", length: 4 },
-    { name: "Destroyer", length: 3 },
-    { name: "Submarine", length: 3 },
-    { name: "Patrol Boat", length: 2 },
-  ];
-
   const shipPlacementScreen = document.createElement("div");
-  shipPlacementScreen.className = "ship-placement";
+  shipPlacementScreen.className = "ship-placement-screen";
 
-  const title = document.createElement("h2");
-  title.className = "ship-placement__title";
-  title.textContent = ` Arrange Yours Ship ${player.name}!`;
-
-  const shipsList = document.createElement("ol");
-
-  availableShips.forEach((ship) => {
-    const shipsListItem = document.createElement("li");
-    shipsListItem.textContent = ship.name;
-    shipsList.append(shipsListItem);
+  const shipPlacementScreenTitle = createScreenTitle({
+    text: `Arrange your ship ${player.name}!`,
+    style: "ship-placement-screen__title",
   });
 
-  const boardContainer = document.createElement("div");
-  boardContainer.className = "ship-placement__container";
+  let selectedShip = null;
+  const placedShips = player.getGameboard().getShipsOnBoard();
+  const placedShipNames = placedShips.map((ship) => ship.name);
+  let isVertical = false;
 
-  boardData.forEach((row, y) => {
+  const shipGarage = createShipGarage({
+    placedShipNames,
+    onSelectShip: (ship) => {
+      selectedShip = ship;
+    },
+    onAxisToggle: (verticalState) => {
+      isVertical = verticalState;
+    },
+  });
+
+  const playerBoard = player.getGameboard().getBoard();
+
+  const playerGameboard = document.createElement("main");
+  playerGameboard.className = "player-gameboard";
+
+  playerBoard.forEach((row, y) => {
     row.forEach((cell, x) => {
       const tile = document.createElement("div");
-      tile.className = "ship-placement__tile";
+      tile.className = "player-gameboard__tile";
       tile.dataset.x = x;
       tile.dataset.y = y;
 
-      boardContainer.append(tile);
+      if (cell !== null) {
+        tile.classList.add("ship-tile");
+      }
+
+      playerGameboard.append(tile);
     });
   });
 
-  boardContainer.addEventListener("click", (e) => console.log(e.target));
+  const updateGameboard = (e) => {
+    if (!e.target.classList.contains("player-gameboard__tile")) {
+      return;
+    }
 
-  const playButton = createButton({
-    text: "Play Game",
-    fn: shipPlacementScreenFn,
+    if (selectedShip === null) {
+      return;
+    }
+
+    const x = Number(e.target.dataset.x);
+    const y = Number(e.target.dataset.y);
+
+    placeShipFn(selectedShip, x, y, isVertical);
+  };
+
+  playerGameboard.addEventListener("dragover", (e) => {
+    e.preventDefault();
+  });
+
+  playerGameboard.addEventListener("dragenter", (e) => {
+    e.preventDefault();
+
+    if (e.target.classList.contains("player-gameboard__tile")) {
+      e.target.classList.add("hover-preview");
+    }
+  });
+
+  playerGameboard.addEventListener("dragleave", (e) => {
+    e.preventDefault();
+
+    if (e.target.classList.contains("player-gameboard__tile")) {
+      e.target.classList.remove("hover-preview");
+    }
+  });
+
+  playerGameboard.addEventListener("drop", (e) => {
+    e.preventDefault();
+
+    if (e.target.classList.contains("player-gameboard__tile")) {
+      e.target.classList.remove("hover-preview");
+    }
+
+    updateGameboard(e);
+  });
+
+  playerGameboard.addEventListener("click", (e) => {
+    updateGameboard(e);
+  });
+
+  const shipPlacementScreenFooter = document.createElement("footer");
+  shipPlacementScreenFooter.className = "ship-placement-screen__footer";
+
+  const readyButton = createButton({
+    text: "Ready to Fight",
+    fn: () => {
+      readyFn(player);
+    },
+  });
+
+  if (placedShips.length < 5) {
+    readyButton.disabled = true;
+  }
+
+  const randomizeButton = createButton({
+    text: "Randomize",
+    fn: () => {
+      randomizeFn();
+    },
   });
 
   const backButton = createButton({
-    text: "Back To Start Screen",
-    fn: goBackFn,
+    text: "Back to Player Setup",
+    fn: () => {
+      backFn();
+    },
   });
 
+  shipPlacementScreenFooter.append(backButton, randomizeButton, readyButton);
+
   shipPlacementScreen.append(
-    title,
-    shipsList,
-    boardContainer,
-    playButton,
-    backButton,
+    shipPlacementScreenTitle,
+    shipGarage,
+    playerGameboard,
+    shipPlacementScreenFooter,
   );
 
   return shipPlacementScreen;

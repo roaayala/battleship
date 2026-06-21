@@ -10,15 +10,29 @@
     flex: 1;
 }
 
-.ship-placement__container {
+.player-gameboard {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
-    width: 20rem;
-    height: 20rem;
 }
 
-.ship-placement__tile {
+.player-gameboard__tile {
+    aspect-ratio: 1/1;
     border: 1px solid black;
-    aspect-ratio: 1 / 1;
+}
+
+.player-gameboard__tile.ship-tile {
+    background-color: gray;
+}
+
+.player-gameboard__tile.hover-preview {
+    background-color: red;
+}
+
+.ship-card.active {
+    font-weight: bold;
+}
+
+.ship-card.placed {
+    text-decoration: line-through;
 }

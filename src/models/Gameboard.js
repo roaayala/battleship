@@ -1,54 +1,99 @@
-import createShip from "./Ship";
+import createShip from "./Ship.js";
 
 export default function createGameboard() {
-  const boardData = Array(10)
+  let board = Array(10)
     .fill(null)
     .map(() => Array(10).fill(null));
 
-  const missedAttackRecord = [];
+  let missedAttackRecord = [];
+  let shipsOnBoard = [];
 
-  const shipsOnBoard = [];
+  const reset = () => {
+    board = Array(10)
+      .fill(null)
+      .map(() => Array(10).fill(null));
 
-  const placeShip = (length, x, y, isVertical = false) => {
-    const newShip = createShip(length);
+    missedAttackRecord = [];
 
-    shipsOnBoard.push(newShip);
-
-    if (isVertical) {
-      // vertical placement
-      for (let i = 0; i < length; i++) {
-        boardData[y + i][x] = newShip;
-      }
-    } else {
-      // horizontal placement
-      for (let i = 0; i < length; i++) {
-        boardData[y][x + i] = newShip;
-      }
-    }
+    shipsOnBoard = [];
   };
 
-  const receiveAttack = (x, y) => {
-    const tile = boardData[y][x];
+  const placeShip = ({ ship, xAxis, yAxis, isVertical = false }) => {
+    // out of bounds
+    if (xAxis < 0 || xAxis > 9 || yAxis < 0 || yAxis > 9) return false; // x or y is less or greater than
+    if (isVertical && yAxis + ship.length > 10) return false; // vertical placement should not exceed 10 length
+    if (!isVertical && xAxis + ship.length > 10) return false; // horizontal placement shoul not exceed 10 length
 
-    if (tile === null) {
-      missedAttackRecord.push([x, y]);
-      boardData[y][x] = "miss";
-      return false;
-    } else if (tile === "miss") {
-      return false;
-    } else {
-      tile.hit();
-      return true;
+    // overlap
+    for (let i = 0; i < ship.length; i++) {
+      const checkY = isVertical ? yAxis + i : yAxis; // if true, move in vertical if not lock y
+      const checkX = isVertical ? xAxis : xAxis + i; // if true, move in horizontal if not lock x
+
+      if (board[checkY][checkX] !== null) return false;
     }
+
+    const newShip = createShip({ ...ship });
+
+    shipsOnBoard = [...shipsOnBoard, newShip];
+
+    board = board.map((row, y) => {
+      return row.map((cell, x) => {
+        // vertical: lock x, and y must greater than or equal yAxis, and y should less than yAxis plus  ship.length
+
+        // horizontal: lock y, and x must greather than or equal of xAxis, and x should less than xAxis + ship.length
+        const shipPath = isVertical
+          ? // lock x, put ship in static x on dynamic y
+            x === xAxis && y >= yAxis && y < yAxis + ship.length
+          : // lock y, put ship in dynamic x on static y
+            y === yAxis && x >= xAxis && x < xAxis + ship.length;
+
+        return shipPath ? newShip : cell;
+      });
+    });
+
+    return true;
   };
 
-  const isAllShipsSunk = () => shipsOnBoard.every((ship) => ship.isSunk());
+  const receiveAttack = (xAxis, yAxis) => {
+    if (xAxis < 0 || xAxis > 9 || yAxis < 0 || yAxis > 9) return;
+
+    let attackResult;
+
+    board = board.map((row, y) => {
+      return row.map((cell, x) => {
+        if (xAxis === x && yAxis === y) {
+          if (cell !== null && cell !== "miss") {
+            cell.hit();
+            attackResult = { isHit: true, coordinate: [xAxis, yAxis] };
+
+            return cell; // return cell if true
+          } else if (cell === "miss") {
+            return cell;
+          } else {
+            cell = "miss";
+            missedAttackRecord = [...missedAttackRecord, [xAxis, yAxis]];
+            attackResult = { isHit: false, coordinate: [xAxis, yAxis] };
+
+            return cell; // return cell if false
+          }
+        } else {
+          return cell; // everthing that happens
+        }
+      });
+    });
+
+    return attackResult;
+  };
+
+  const allShipsSunk = () => shipsOnBoard.every((ship) => ship.isSunk());
 
   return {
-    getBoard: () => boardData,
+    getBoard: () => board,
     getMissedAttacks: () => missedAttackRecord,
+    getShipsOnBoard: () => shipsOnBoard,
+    reset,
     placeShip,
     receiveAttack,
-    isAllShipsSunk,
+    allShipsSunk,
   };
 }
