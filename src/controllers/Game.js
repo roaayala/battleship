@@ -100,7 +100,7 @@ export default function startGame(view, model) {
   };
 
   const onReadyHandler = (players) => {
-    console.log(players);
+    console.log(players[0].getGameboard().getBoard());
   };
 
   UI.initialRender();
