@@ -25,6 +25,10 @@
     background-color: gray;
 }
 
-.active {
+.ship-card.active {
     font-weight: bold;
+}
+
+.ship-card.placed {
+    text-decoration: line-through;
 }
