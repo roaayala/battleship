@@ -8,6 +8,16 @@ export default function createGameboard() {
   let missedAttackRecord = [];
   let shipsOnBoard = [];
 
+  const reset = () => {
+    board = Array(10)
+      .fill(null)
+      .map(() => Array(10).fill(null));
+
+    missedAttackRecord = [];
+
+    shipsOnBoard = [];
+  };
+
   const placeShip = ({ ship, xAxis, yAxis, isVertical = false }) => {
     // out of bounds
     if (xAxis < 0 || xAxis > 9 || yAxis < 0 || yAxis > 9) return false; // x or y is less or greater than
@@ -81,6 +91,7 @@ export default function createGameboard() {
     getBoard: () => board,
     getMissedAttacks: () => missedAttackRecord,
     getShipsOnBoard: () => shipsOnBoard,
+    reset,
     placeShip,
     receiveAttack,
     allShipsSunk,

@@ -4,6 +4,8 @@ export default function startGame(view, model) {
   const UI = view();
 
   const randomizeShipPlacement = (gameboard) => {
+    gameboard.reset();
+
     const fleet = [
       { name: "Carrier", length: 5 },
       { name: "Battleship", length: 4 },
