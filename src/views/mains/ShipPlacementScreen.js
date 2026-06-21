@@ -1,10 +1,12 @@
 import createButton from "../components/Button";
 import createScreenTitle from "../components/ScreenTitle";
+import { SHIP_CONFIGS } from "../../utilities/constants";
 
 export default function createShipPlacementScreen(
   player,
   readyFn,
   randomizeFn,
+  placeShipFn,
   backFn,
 ) {
   const shipPlacementScreen = document.createElement("div");
@@ -14,6 +16,48 @@ export default function createShipPlacementScreen(
     text: `Arrange your ship ${player.name}!`,
     style: "ship-placement-screen__title",
   });
+
+  const shipGarage = document.createElement("aside");
+  shipGarage.className = "ship-garage";
+
+  const garageTitle = document.createElement("h3");
+  garageTitle.className = "ship-garage__title";
+  garageTitle.textContent = "Available Ships";
+  shipGarage.append(garageTitle);
+
+  let currentSelectedShip = null;
+
+  SHIP_CONFIGS.forEach((ship) => {
+    const shipCard = document.createElement("div");
+    shipCard.className = "ship-card";
+    shipCard.textContent = `${ship.name} (Length: ${ship.length})`;
+
+    shipCard.addEventListener("click", () => {
+      currentSelectedShip = ship;
+
+      const allShip = shipGarage.querySelectorAll(".ship-card");
+
+      // remove active state to others button
+      allShip.forEach((btn) => btn.classList.remove("active"));
+
+      // add active state to clicked button
+      shipCard.classList.add("active");
+    });
+
+    shipGarage.append(shipCard);
+  });
+
+  let isVertical = false;
+  const axisToggleButton = createButton({
+    text: "Axis: Horizontal",
+    style: "axis-toggle-btn",
+    fn: () => {
+      isVertical = !isVertical;
+      axisToggleButton.textContent = `Axis: ${isVertical ? "Vertical" : "Horizontal"}`;
+    },
+  });
+
+  shipGarage.append(axisToggleButton);
 
   const playerBoard = player.getGameboard().getBoard();
 
@@ -35,7 +79,20 @@ export default function createShipPlacementScreen(
     });
   });
 
-  playerGameboard.addEventListener("click", (e) => {});
+  playerGameboard.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("player-gameboard__tile")) {
+      return;
+    }
+
+    if (currentSelectedShip === null) {
+      return;
+    }
+
+    const x = Number(e.target.dataset.x);
+    const y = Number(e.target.dataset.y);
+
+    placeShipFn(currentSelectedShip, x, y, isVertical);
+  });
 
   const shipPlacementScreenFooter = document.createElement("footer");
   shipPlacementScreenFooter.className = "ship-placement-screen__footer";
@@ -65,6 +122,7 @@ export default function createShipPlacementScreen(
 
   shipPlacementScreen.append(
     shipPlacementScreenTitle,
+    shipGarage,
     playerGameboard,
     shipPlacementScreenFooter,
   );

@@ -41,6 +41,7 @@ export default function renderUI() {
     players,
     onReadyFn,
     randomizeFn,
+    placeShipFn,
     onBackFn,
   ) => {
     resetContainer();
@@ -48,6 +49,7 @@ export default function renderUI() {
       players,
       onReadyFn,
       randomizeFn,
+      placeShipFn,
       onBackFn,
     );
 

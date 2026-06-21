@@ -24,3 +24,7 @@
 .player-gameboard__tile.ship-tile {
     background-color: gray;
 }
+
+.active {
+    font-weight: bold;
+}

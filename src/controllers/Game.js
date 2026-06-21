@@ -1,5 +1,5 @@
 import createMessageBoard from "../views/components/MessageBoard";
-import { SHIP_CONFIGS } from "../utilities/contstans";
+import { SHIP_CONFIGS } from "../utilities/constants";
 
 export default function startGame(view, model) {
   const UI = view();
@@ -76,6 +76,21 @@ export default function startGame(view, model) {
       () => {
         randomizeShipPlacement(currentPlayer.getGameboard());
         onShipPlacementPhase(humanPlayers, currentIndex);
+      },
+      (ship, xAxis, yAxis, isVertical) => {
+        const isPlaced = currentPlayer
+          .getGameboard()
+          .placeShip({ ship, xAxis, yAxis, isVertical });
+
+        if (isPlaced) {
+          onShipPlacementPhase(humanPlayers, currentIndex);
+        } else {
+          const messageBoard = createMessageBoard({
+            text: "Fail to place ship",
+          });
+
+          UI.showMessageBoard(messageBoard);
+        }
       },
       () => {
         UI.renderStartScreen(onStartHandler);
