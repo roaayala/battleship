@@ -18,6 +18,15 @@ export default function createShipGarage({
 
   SHIP_CONFIGS.forEach((ship) => {
     const isPlaced = placedShipNames.includes(ship.name);
+    const setActiveState = () => {
+      const allShip = shipGarageContainer.querySelectorAll(".ship-card");
+
+      // remove active state to others button
+      allShip.forEach((btn) => btn.classList.remove("active"));
+
+      // add active state to clicked button
+      shipCard.classList.add("active");
+    };
 
     const shipCard = document.createElement("div");
     shipCard.className = "ship-card";
@@ -26,16 +35,16 @@ export default function createShipGarage({
     if (isPlaced) {
       shipCard.classList.add("placed");
     } else {
+      shipCard.draggable = true;
+
+      shipCard.addEventListener("dragstart", () => {
+        onSelectShip(ship);
+        setActiveState();
+      });
+
       shipCard.addEventListener("click", () => {
         onSelectShip(ship);
-
-        const allShip = shipGarageContainer.querySelectorAll(".ship-card");
-
-        // remove active state to others button
-        allShip.forEach((btn) => btn.classList.remove("active"));
-
-        // add active state to clicked button
-        shipCard.classList.add("active");
+        setActiveState();
       });
     }
 

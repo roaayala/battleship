@@ -49,7 +49,7 @@ export default function createShipPlacementScreen(
     });
   });
 
-  playerGameboard.addEventListener("click", (e) => {
+  const updateGameboard = (e) => {
     if (!e.target.classList.contains("player-gameboard__tile")) {
       return;
     }
@@ -62,6 +62,40 @@ export default function createShipPlacementScreen(
     const y = Number(e.target.dataset.y);
 
     placeShipFn(selectedShip, x, y, isVertical);
+  };
+
+  playerGameboard.addEventListener("dragover", (e) => {
+    e.preventDefault();
+  });
+
+  playerGameboard.addEventListener("dragenter", (e) => {
+    e.preventDefault();
+
+    if (e.target.classList.contains("player-gameboard__tile")) {
+      e.target.classList.add("hover-preview");
+    }
+  });
+
+  playerGameboard.addEventListener("dragleave", (e) => {
+    e.preventDefault();
+
+    if (e.target.classList.contains("player-gameboard__tile")) {
+      e.target.classList.remove("hover-preview");
+    }
+  });
+
+  playerGameboard.addEventListener("drop", (e) => {
+    e.preventDefault();
+
+    if (e.target.classList.contains("player-gameboard__tile")) {
+      e.target.classList.remove("hover-preview");
+    }
+
+    updateGameboard(e);
+  });
+
+  playerGameboard.addEventListener("click", (e) => {
+    updateGameboard(e);
   });
 
   const shipPlacementScreenFooter = document.createElement("footer");
@@ -74,7 +108,7 @@ export default function createShipPlacementScreen(
     },
   });
 
-  if (placedShips < 5) {
+  if (placedShips.length < 5) {
     readyButton.disabled = true;
   }
 

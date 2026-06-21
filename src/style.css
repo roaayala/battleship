@@ -25,6 +25,10 @@
     background-color: gray;
 }
 
+.player-gameboard__tile.hover-preview {
+    background-color: red;
+}
+
 .ship-card.active {
     font-weight: bold;
 }
