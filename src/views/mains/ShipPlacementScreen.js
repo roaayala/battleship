@@ -27,7 +27,15 @@ export default function createShipPlacementScreen(
 
   let currentSelectedShip = null;
 
+  const placedShips = player.getGameboard().getShipsOnBoard();
+
+  const placedShipNames = placedShips.map((ship) => ship.name);
+
   SHIP_CONFIGS.forEach((ship) => {
+    if (placedShipNames.includes(ship.name)) {
+      return;
+    }
+
     const shipCard = document.createElement("div");
     shipCard.className = "ship-card";
     shipCard.textContent = `${ship.name} (Length: ${ship.length})`;
@@ -103,6 +111,10 @@ export default function createShipPlacementScreen(
       readyFn(player);
     },
   });
+
+  if (placedShips < 5) {
+    readyButton.disabled = true;
+  }
 
   const randomizeButton = createButton({
     text: "Randomize",
