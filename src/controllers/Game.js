@@ -1,4 +1,5 @@
 import createMessageBoard from "../views/components/MessageBoard";
+import { SHIP_CONFIGS } from "../utilities/contstans";
 
 export default function startGame(view, model) {
   const UI = view();
@@ -6,13 +7,7 @@ export default function startGame(view, model) {
   const randomizeShipPlacement = (gameboard) => {
     gameboard.reset();
 
-    const fleet = [
-      { name: "Carrier", length: 5 },
-      { name: "Battleship", length: 4 },
-      { name: "Cruiser", length: 3 },
-      { name: "Submarine", length: 3 },
-      { name: "Destroyer", length: 2 },
-    ];
+    const fleet = SHIP_CONFIGS;
 
     fleet.forEach((ship) => {
       let isPlaced = false;
