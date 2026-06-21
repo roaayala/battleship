@@ -37,21 +37,9 @@ export default function renderUI() {
     main.append(startScreen);
   };
 
-  const renderShipPlacementScreen = (
-    players,
-    onReadyFn,
-    randomizeFn,
-    placeShipFn,
-    onBackFn,
-  ) => {
+  const renderShipPlacementScreen = (players, handler) => {
     resetContainer();
-    const shipReplacementScreen = createShipPlacementScreen(
-      players,
-      onReadyFn,
-      randomizeFn,
-      placeShipFn,
-      onBackFn,
-    );
+    const shipReplacementScreen = createShipPlacementScreen(players, handler);
 
     main.append(shipReplacementScreen);
   };

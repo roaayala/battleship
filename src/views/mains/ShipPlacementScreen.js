@@ -4,10 +4,7 @@ import { SHIP_CONFIGS } from "../../utilities/constants";
 
 export default function createShipPlacementScreen(
   player,
-  readyFn,
-  randomizeFn,
-  placeShipFn,
-  backFn,
+  { readyFn, randomizeFn, placeShipFn, backFn },
 ) {
   const shipPlacementScreen = document.createElement("div");
   shipPlacementScreen.className = "ship-placement-screen";

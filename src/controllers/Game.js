@@ -4,7 +4,7 @@ import { SHIP_CONFIGS } from "../utilities/constants";
 export default function startGame(view, model) {
   const UI = view();
 
-  const randomizeShipPlacement = (gameboard) => {
+  const onRandomizeShipPlacement = (gameboard) => {
     gameboard.reset();
 
     const fleet = SHIP_CONFIGS;
@@ -45,14 +45,14 @@ export default function startGame(view, model) {
     if (playerOne.isHuman) {
       humanPlayers.push(playerOne);
     } else {
-      randomizeShipPlacement(playerOne.getGameboard());
+      onRandomizeShipPlacement(playerOne.getGameboard());
     }
 
     const playerTwo = model({ name: "Player Two", isHuman: p2 === "human" });
     if (playerTwo.isHuman) {
       humanPlayers.push(playerTwo);
     } else {
-      randomizeShipPlacement(playerTwo.getGameboard());
+      onRandomizeShipPlacement(playerTwo.getGameboard());
     }
 
     onShipPlacementPhase(humanPlayers, 0);
@@ -68,16 +68,17 @@ export default function startGame(view, model) {
 
     const currentPlayer = humanPlayers[currentIndex];
 
-    UI.renderShipPlacementScreen(
-      currentPlayer,
-      () => {
+    UI.renderShipPlacementScreen(currentPlayer, {
+      readyFn: () => {
         onShipPlacementPhase(humanPlayers, currentIndex + 1); // recursive, call this function for next human player
       },
-      () => {
-        randomizeShipPlacement(currentPlayer.getGameboard());
+
+      randomizeFn: () => {
+        onRandomizeShipPlacement(currentPlayer.getGameboard());
         onShipPlacementPhase(humanPlayers, currentIndex);
       },
-      (ship, xAxis, yAxis, isVertical) => {
+
+      placeShipFn: (ship, xAxis, yAxis, isVertical) => {
         const isPlaced = currentPlayer
           .getGameboard()
           .placeShip({ ship, xAxis, yAxis, isVertical });
@@ -92,10 +93,10 @@ export default function startGame(view, model) {
           UI.showMessageBoard(messageBoard);
         }
       },
-      () => {
+      backFn: () => {
         UI.renderStartScreen(onStartHandler);
       },
-    );
+    });
   };
 
   const onReadyHandler = (players) => {
