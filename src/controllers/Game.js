@@ -78,6 +78,11 @@ export default function startGame(view, model) {
         onShipPlacementPhase(humanPlayers, currentIndex);
       },
 
+      resetFn: () => {
+        currentPlayer.getGameboard().reset();
+        onShipPlacementPhase(humanPlayers, currentIndex);
+      },
+
       placeShipFn: (ship, xAxis, yAxis, isVertical) => {
         const isPlaced = currentPlayer
           .getGameboard()

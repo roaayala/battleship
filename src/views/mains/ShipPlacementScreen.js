@@ -5,7 +5,7 @@ import createShipGarage from "../components/ShipGarage";
 
 export default function createShipPlacementScreen(
   player,
-  { readyFn, randomizeFn, placeShipFn, backFn },
+  { readyFn, randomizeFn, placeShipFn, resetFn, backFn },
 ) {
   const shipPlacementScreen = document.createElement("div");
   shipPlacementScreen.className = "ship-placement-screen";
@@ -71,7 +71,19 @@ export default function createShipPlacementScreen(
     },
   });
 
-  shipPlacementScreenFooter.append(backButton, randomizeButton, readyButton);
+  const resetButton = createButton({
+    text: "Reset Board",
+    fn: () => {
+      resetFn();
+    },
+  });
+
+  shipPlacementScreenFooter.append(
+    backButton,
+    randomizeButton,
+    resetButton,
+    readyButton,
+  );
 
   shipPlacementScreen.append(
     shipPlacementScreenTitle,
