@@ -13,8 +13,16 @@ export default function createGameboardUI({
       tile.dataset.x = x;
       tile.dataset.y = y;
 
-      if (cell !== null && !isRadar) {
+      if (cell !== null && typeof cell === "object" && !isRadar) {
         tile.classList.add("ship-tile");
+      }
+
+      if (cell === "miss") {
+        tile.classList.add("miss");
+      }
+
+      if (cell === "hit") {
+        tile.classList.add("hit");
       }
 
       gameboard.append(tile);

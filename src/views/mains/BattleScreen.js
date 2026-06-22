@@ -11,15 +11,14 @@ export default function createBattleScreen({
   const leftScreen = document.createElement("div");
   leftScreen.className = "battle-screen-left";
 
-  console.log(playerBoard);
-  console.log(enemyBoard);
-
   const leftBoardUI = createGameboardUI({
     playerBoard: playerBoard,
     isRadar: false,
   });
 
   leftScreen.append(leftBoardUI);
+
+  const br = document.createElement("br");
 
   const rightScreen = document.createElement("div");
   rightScreen.className = "battle-screen-right";
@@ -34,7 +33,7 @@ export default function createBattleScreen({
 
   rightScreen.append(rightBoardUI);
 
-  battleScreen.append(leftScreen, rightScreen);
+  battleScreen.append(leftScreen, br, rightScreen);
 
   return battleScreen;
 }

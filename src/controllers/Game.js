@@ -110,14 +110,51 @@ export default function startGame(view, model) {
   };
 
   const onBattlePhase = (activePlayer, defendingPlayer) => {
-    const activeBoard = activePlayer.getGameboard().getBoard();
-    const defendingBoard = defendingPlayer.getGameboard().getBoard();
+    // winning condition
+    if (defendingPlayer.getGameboard().allShipsSunk()) {
+      alert(`${activePlayer.name} Win!`);
+      return;
+    }
 
+    const humanPlayer = activePlayer.isHuman ? activePlayer : defendingPlayer;
+    const enemyPlayer = activePlayer.isHuman ? defendingPlayer : activePlayer;
+
+    const humanBoard = humanPlayer.getGameboard().getBoard();
+    const enemyBoard = enemyPlayer.getGameboard().getBoard();
+
+    // if computer
+    if (!activePlayer.isHuman) {
+      setTimeout(() => {
+        activePlayer.randomizeAttack(defendingPlayer.getGameboard());
+
+        onBattlePhase(defendingPlayer, activePlayer);
+      }, 250);
+
+      UI.renderBattleScreen({
+        playerBoard: humanBoard,
+        enemyBoard: enemyBoard,
+        attackFn: () => {},
+      });
+
+      return;
+    }
+
+    // if human
     UI.renderBattleScreen({
-      playerBoard: activeBoard,
-      enemyBoard: defendingBoard,
+      playerBoard: humanBoard,
+      enemyBoard: enemyBoard,
       attackFn: (x, y) => {
-        console.log(x, y);
+        const isValid = activePlayer.attack(
+          defendingPlayer.getGameboard(),
+          x,
+          y,
+        );
+
+        if (!isValid) {
+          return;
+        }
+
+        onBattlePhase(defendingPlayer, activePlayer);
       },
     });
   };

@@ -29,6 +29,14 @@
     background-color: red;
 }
 
+.player-gameboard__tile.miss {
+    background-color: yellow;
+}
+
+.player-gameboard__tile.hit {
+    background-color: green;
+}
+
 .ship-card.active {
     font-weight: bold;
 }
