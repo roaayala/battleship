@@ -1,5 +1,6 @@
 import createFooter from "./Footer";
 import createHeader from "./Header";
+import createBattleScreen from "./mains/BattleScreen";
 import createShipPlacementScreen from "./mains/ShipPlacementScreen";
 import createStartScreen from "./mains/StartScreen";
 
@@ -44,7 +45,17 @@ export default function renderUI() {
     main.append(shipReplacementScreen);
   };
 
-  const renderBattleScreen = () => {};
+  const renderBattleScreen = ({ playerBoard, enemyBoard, attackFn }) => {
+    resetContainer();
+
+    const battleScreen = createBattleScreen({
+      playerBoard,
+      enemyBoard,
+      attackFn,
+    });
+
+    main.append(battleScreen);
+  };
 
   const renderGameOverScreen = () => {};
 

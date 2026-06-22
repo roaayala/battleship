@@ -24,7 +24,7 @@ export default function createPlayer({ name, isHuman = true }) {
 
   // for human player
   const attack = (enemyGameboard, x, y) => {
-    enemyGameboard.receiveAttack(x, y);
+    return enemyGameboard.receiveAttack(x, y);
   };
 
   return {
