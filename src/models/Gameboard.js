@@ -32,7 +32,7 @@ export default function createGameboard() {
       if (board[checkY][checkX] !== null) return false;
     }
 
-    const newShip = createShip({ ...ship });
+    const newShip = createShip({ name: ship.name, length: ship.length });
 
     shipsOnBoard = [...shipsOnBoard, newShip];
 
@@ -57,24 +57,20 @@ export default function createGameboard() {
   const receiveAttack = (xAxis, yAxis) => {
     if (xAxis < 0 || xAxis > 9 || yAxis < 0 || yAxis > 9) return;
 
-    let attackResult;
+    let attackResult = false;
 
     board = board.map((row, y) => {
       return row.map((cell, x) => {
         if (xAxis === x && yAxis === y) {
-          if (cell !== null && cell !== "miss") {
-            cell.hit();
-            attackResult = { isHit: true, coordinate: [xAxis, yAxis] };
-
-            return cell; // return cell if true
-          } else if (cell === "miss") {
+          if (cell === "miss" || cell === "hit") {
             return cell;
+          } else if (cell !== null) {
+            cell.hit();
+            attackResult = true;
+            return "hit"; // return cell if true
           } else {
-            cell = "miss";
-            missedAttackRecord = [...missedAttackRecord, [xAxis, yAxis]];
-            attackResult = { isHit: false, coordinate: [xAxis, yAxis] };
-
-            return cell; // return cell if false
+            attackResult = true;
+            return "miss"; // return cell if false
           }
         } else {
           return cell; // everthing that happens

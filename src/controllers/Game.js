@@ -40,8 +40,11 @@ export default function startGame(view, model) {
     }
 
     const humanPlayers = [];
+    const allPlayers = [];
 
     const playerOne = model({ name: "Player One", isHuman: p1 === "human" });
+    allPlayers.push(playerOne);
+
     if (playerOne.isHuman) {
       humanPlayers.push(playerOne);
     } else {
@@ -49,20 +52,22 @@ export default function startGame(view, model) {
     }
 
     const playerTwo = model({ name: "Player Two", isHuman: p2 === "human" });
+    allPlayers.push(playerTwo);
+
     if (playerTwo.isHuman) {
       humanPlayers.push(playerTwo);
     } else {
       onRandomizeShipPlacement(playerTwo.getGameboard());
     }
 
-    onShipPlacementPhase(humanPlayers, 0);
+    onShipPlacementPhase(humanPlayers, 0, allPlayers);
   };
 
-  const onShipPlacementPhase = (humanPlayers, currentIndex) => {
+  const onShipPlacementPhase = (humanPlayers, currentIndex, allPlayers) => {
     if (currentIndex >= humanPlayers.length) {
       // if human vs comp or comp vs human
+      onBattlePhase(allPlayers[0], allPlayers[1]);
 
-      onReadyHandler(humanPlayers);
       return;
     }
 
@@ -70,12 +75,17 @@ export default function startGame(view, model) {
 
     UI.renderShipPlacementScreen(currentPlayer, {
       readyFn: () => {
-        onShipPlacementPhase(humanPlayers, currentIndex + 1); // recursive, call this function for next human player
+        onShipPlacementPhase(humanPlayers, currentIndex + 1, allPlayers); // recursive, call this function for next human player
       },
 
       randomizeFn: () => {
         onRandomizeShipPlacement(currentPlayer.getGameboard());
-        onShipPlacementPhase(humanPlayers, currentIndex);
+        onShipPlacementPhase(humanPlayers, currentIndex, allPlayers);
+      },
+
+      resetFn: () => {
+        currentPlayer.getGameboard().reset();
+        onShipPlacementPhase(humanPlayers, currentIndex, allPlayers);
       },
 
       placeShipFn: (ship, xAxis, yAxis, isVertical) => {
@@ -84,7 +94,7 @@ export default function startGame(view, model) {
           .placeShip({ ship, xAxis, yAxis, isVertical });
 
         if (isPlaced) {
-          onShipPlacementPhase(humanPlayers, currentIndex);
+          onShipPlacementPhase(humanPlayers, currentIndex, allPlayers);
         } else {
           const messageBoard = createMessageBoard({
             text: "Fail to place ship",
@@ -99,8 +109,54 @@ export default function startGame(view, model) {
     });
   };
 
-  const onReadyHandler = (players) => {
-    console.log(players[0].getGameboard().getBoard());
+  const onBattlePhase = (activePlayer, defendingPlayer) => {
+    // winning condition
+    if (defendingPlayer.getGameboard().allShipsSunk()) {
+      alert(`${activePlayer.name} Win!`);
+      return;
+    }
+
+    const humanPlayer = activePlayer.isHuman ? activePlayer : defendingPlayer;
+    const enemyPlayer = activePlayer.isHuman ? defendingPlayer : activePlayer;
+
+    const humanBoard = humanPlayer.getGameboard().getBoard();
+    const enemyBoard = enemyPlayer.getGameboard().getBoard();
+
+    // if computer
+    if (!activePlayer.isHuman) {
+      setTimeout(() => {
+        activePlayer.randomizeAttack(defendingPlayer.getGameboard());
+
+        onBattlePhase(defendingPlayer, activePlayer);
+      }, 250);
+
+      UI.renderBattleScreen({
+        playerBoard: humanBoard,
+        enemyBoard: enemyBoard,
+        attackFn: () => {},
+      });
+
+      return;
+    }
+
+    // if human
+    UI.renderBattleScreen({
+      playerBoard: humanBoard,
+      enemyBoard: enemyBoard,
+      attackFn: (x, y) => {
+        const isValid = activePlayer.attack(
+          defendingPlayer.getGameboard(),
+          x,
+          y,
+        );
+
+        if (!isValid) {
+          return;
+        }
+
+        onBattlePhase(defendingPlayer, activePlayer);
+      },
+    });
   };
 
   UI.initialRender();
