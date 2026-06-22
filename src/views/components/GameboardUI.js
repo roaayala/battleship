@@ -1,4 +1,8 @@
-export default function createGameboardUI({ playerBoard, onTileSelect }) {
+export default function createGameboardUI({
+  playerBoard,
+  onTileSelect,
+  isRadar = false,
+}) {
   const gameboard = document.createElement("main");
   gameboard.className = "player-gameboard";
 
@@ -9,7 +13,7 @@ export default function createGameboardUI({ playerBoard, onTileSelect }) {
       tile.dataset.x = x;
       tile.dataset.y = y;
 
-      if (cell !== null) {
+      if (cell !== null && !isRadar) {
         tile.classList.add("ship-tile");
       }
 
@@ -19,6 +23,10 @@ export default function createGameboardUI({ playerBoard, onTileSelect }) {
 
   const updateGameboard = (e) => {
     if (!e.target.classList.contains("player-gameboard__tile")) {
+      return;
+    }
+
+    if (!onTileSelect) {
       return;
     }
 
