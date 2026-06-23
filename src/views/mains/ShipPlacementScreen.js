@@ -47,7 +47,7 @@ export default function createShipPlacementScreen(
   shipPlacementScreenFooter.className = "ship-placement-screen__footer";
 
   const readyButton = createButton({
-    text: "Ready to Fight",
+    text: "To the Battle",
     style: "button button-primary",
     fn: () => {
       readyFn(player);
@@ -66,7 +66,7 @@ export default function createShipPlacementScreen(
   });
 
   const backButton = createButton({
-    text: "Back to Player Setup",
+    text: "Back",
     style: "button button-outline",
     fn: () => {
       backFn();
@@ -74,7 +74,7 @@ export default function createShipPlacementScreen(
   });
 
   const resetButton = createButton({
-    text: "Reset Board",
+    text: "Reset",
     fn: () => {
       resetFn();
     },

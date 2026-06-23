@@ -5,6 +5,7 @@
 
 @import url("./styles/components/button.css");
 @import url("./styles/components/form-select.css");
+@import url("./styles/components/ship-garage.css");
 
 body {
     font-family: "Google Sans", sans-serif;
@@ -46,12 +47,4 @@ body {
 
 .player-gameboard__tile.hit {
     background-color: green;
-}
-
-.ship-card.active {
-    font-weight: bold;
-}
-
-.ship-card.placed {
-    text-decoration: line-through;
 }

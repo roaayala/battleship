@@ -1,5 +1,5 @@
 .button {
-    font-weight: 700;
+    font-weight: 600;
     font-size: 1rem;
 
     background-color: var(--primary);
@@ -21,8 +21,8 @@
 }
 
 .button.button-primary {
-    background-color: var(--neutral);
-    border: 1px solid var(--neutral);
+    background-color: var(--accent);
+    border: 1px solid var(--accent);
     color: white;
 }
 

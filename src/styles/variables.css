@@ -1,9 +1,10 @@
 :root {
-    --danger: oklch(63.7% 0.237 25.331);
-    --warning: oklch(79.5% 0.184 86.047);
-    --success: oklch(72.3% 0.219 149.579);
+    --danger: oklch(80.8% 0.114 19.571);
+    --warning: oklch(90.5% 0.182 98.111);
+    --success: oklch(87.1% 0.15 154.449);
+    --neutral: oklch(80.9% 0.105 251.813);
 
-    --neutral: oklch(62.3% 0.214 259.815);
+    --accent: oklch(62.3% 0.214 259.815);
 
     --primary: oklch(26.9% 0 0);
     --secondary: oklch(37.1% 0 0);
