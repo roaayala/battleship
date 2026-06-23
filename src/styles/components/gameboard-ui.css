@@ -1,4 +1,7 @@
 .player-gameboard {
+    width: 100%;
+    max-width: 24rem;
+
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);

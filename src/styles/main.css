@@ -10,7 +10,8 @@
 }
 
 .start-screen,
-.ship-placement-screen {
+.ship-placement-screen,
+.battle-screen {
     width: 100%;
     max-width: 18rem;
 }
@@ -18,3 +19,4 @@
 @import url("./mains/start-screen.css");
 @import url("./mains/ship-placement-screen.css");
 @import url("./components/gameboard-ui.css");
+@import url("./mains/battle-screen.css");
