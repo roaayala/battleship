@@ -62,9 +62,12 @@ export default function createShipGarage({
 
   let localIsVertical = false;
 
+  const shipGarageAction = document.createElement("div");
+  shipGarageAction.className = "ship-garage__action";
+
   const axisToggleButton = createButton({
     text: "Axis: Horizontal",
-    style: "axis-toggle-btn",
+    style: "button button-outline axis-toggle-btn",
     fn: () => {
       localIsVertical = !localIsVertical;
       axisToggleButton.textContent = `Axis: ${localIsVertical ? "Vertical" : "Horizontal"}`;
@@ -73,7 +76,9 @@ export default function createShipGarage({
     },
   });
 
-  shipGarage.append(shipGarageTitle, shipGarageContainer, axisToggleButton);
+  shipGarageAction.append(axisToggleButton);
+
+  shipGarage.append(shipGarageTitle, shipGarageContainer, shipGarageAction);
 
   return shipGarage;
 }
