@@ -66,10 +66,11 @@ export default function createGameboard() {
             return cell;
           } else if (cell !== null) {
             cell.hit();
-            attackResult = true;
+            attackResult = { isHit: true, coordinate: [xAxis, yAxis] };
             return "hit"; // return cell if true
           } else {
-            attackResult = true;
+            attackResult = { isHit: false, coordinate: [xAxis, yAxis] };
+            missedAttackRecord = [...missedAttackRecord, [xAxis, yAxis]];
             return "miss"; // return cell if false
           }
         } else {
