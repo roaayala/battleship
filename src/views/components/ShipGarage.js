@@ -22,7 +22,7 @@ export default function createShipGarage({
       const allShip = shipGarageContainer.querySelectorAll(".ship-card");
 
       // remove active state to others button
-      allShip.forEach((btn) => btn.classList.remove("active"));
+      allShip.forEach((card) => card.classList.remove("active"));
 
       // add active state to clicked button
       shipCard.classList.add("active");
@@ -30,7 +30,16 @@ export default function createShipGarage({
 
     const shipCard = document.createElement("div");
     shipCard.className = "ship-card";
-    shipCard.textContent = `${ship.name} (Length: ${ship.length})`;
+
+    const shipCardTitle = document.createElement("h4");
+    shipCardTitle.className = "ship-card__title";
+    shipCardTitle.textContent = ship.name;
+
+    const shipCardInfo = document.createElement("p");
+    shipCardInfo.className = "ship-card__info";
+    shipCardInfo.textContent = `Length: ${ship.length}`;
+
+    shipCard.append(shipCardTitle, shipCardInfo);
 
     if (isPlaced) {
       shipCard.classList.add("placed");
@@ -53,9 +62,12 @@ export default function createShipGarage({
 
   let localIsVertical = false;
 
+  const shipGarageAction = document.createElement("div");
+  shipGarageAction.className = "ship-garage__action";
+
   const axisToggleButton = createButton({
     text: "Axis: Horizontal",
-    style: "axis-toggle-btn",
+    style: "button button-outline axis-toggle-btn",
     fn: () => {
       localIsVertical = !localIsVertical;
       axisToggleButton.textContent = `Axis: ${localIsVertical ? "Vertical" : "Horizontal"}`;
@@ -64,7 +76,9 @@ export default function createShipGarage({
     },
   });
 
-  shipGarage.append(shipGarageTitle, shipGarageContainer, axisToggleButton);
+  shipGarageAction.append(axisToggleButton);
+
+  shipGarage.append(shipGarageTitle, shipGarageContainer, shipGarageAction);
 
   return shipGarage;
 }

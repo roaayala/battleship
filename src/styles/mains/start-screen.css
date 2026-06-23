@@ -1,0 +1,28 @@
+.start-screen {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    padding: 3rem 2rem;
+    border-radius: 1rem;
+    box-shadow:
+        rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+        rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.start-screen__title {
+    text-align: center;
+}
+
+.start-screen__main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 1rem;
+}
+
+.start-screen__footer {
+    text-align: center;
+}

@@ -18,8 +18,6 @@ export default function createBattleScreen({
 
   leftScreen.append(leftBoardUI);
 
-  const br = document.createElement("br");
-
   const rightScreen = document.createElement("div");
   rightScreen.className = "battle-screen-right";
 
@@ -33,7 +31,7 @@ export default function createBattleScreen({
 
   rightScreen.append(rightBoardUI);
 
-  battleScreen.append(leftScreen, br, rightScreen);
+  battleScreen.append(leftScreen, rightScreen);
 
   return battleScreen;
 }

@@ -1,0 +1,44 @@
+.ship-garage {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.ship-garage__container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+}
+
+.ship-card {
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    box-shadow:
+        rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
+        rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
+
+.ship-card__title {
+    font-size: 0.875rem;
+}
+
+.ship-card__info {
+    font-size: 0.675rem;
+}
+
+.ship-card.active {
+    background-color: var(--neutral);
+}
+
+.ship-card.placed {
+    background-color: var(--danger);
+    text-decoration: line-through;
+}
+
+.ship-garage__action {
+    text-align: center;
+}
+
+.axis-toggle-btn {
+    font-size: 0.75rem;
+}

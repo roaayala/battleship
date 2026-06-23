@@ -1,4 +1,16 @@
 @import url("./styles/reset.css");
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap");
+
+@import url("./styles/variables.css");
+
+@import url("./styles/components/button.css");
+@import url("./styles/components/form-select.css");
+@import url("./styles/components/ship-garage.css");
+
+body {
+    font-family: "Google Sans", sans-serif;
+    color: var(--primary);
+}
 
 #app {
     display: flex;
@@ -6,41 +18,6 @@
     min-height: 100vh;
 }
 
-.main {
-    flex: 1;
-}
-
-.player-gameboard {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(10, 1fr);
-}
-
-.player-gameboard__tile {
-    aspect-ratio: 1/1;
-    border: 1px solid black;
-}
-
-.player-gameboard__tile.ship-tile {
-    background-color: gray;
-}
-
-.player-gameboard__tile.hover-preview {
-    background-color: red;
-}
-
-.player-gameboard__tile.miss {
-    background-color: yellow;
-}
-
-.player-gameboard__tile.hit {
-    background-color: green;
-}
-
-.ship-card.active {
-    font-weight: bold;
-}
-
-.ship-card.placed {
-    text-decoration: line-through;
-}
+@import url("./styles/header.css");
+@import url("./styles/main.css");
+@import url("./styles/footer.css");

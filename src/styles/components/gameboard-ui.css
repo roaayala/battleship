@@ -1,0 +1,29 @@
+.player-gameboard {
+    width: 100%;
+    max-width: 24rem;
+
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+}
+
+.player-gameboard__tile {
+    aspect-ratio: 1/1;
+    border: 1px solid black;
+}
+
+.player-gameboard__tile.ship-tile {
+    background-color: var(--neutral);
+}
+
+.player-gameboard__tile.hover-preview {
+    background-color: var(--accent);
+}
+
+.player-gameboard__tile.miss {
+    background-color: var(--warning);
+}
+
+.player-gameboard__tile.hit {
+    background-color: var(--success);
+}
