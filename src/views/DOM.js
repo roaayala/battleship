@@ -8,10 +8,9 @@ export default function renderUI() {
   const appContainer = document.getElementById("app");
 
   let main;
-  let screenContainer;
 
   const resetContainer = () => {
-    screenContainer.innerHTML = "";
+    main.innerHTML = "";
   };
 
   const initialRender = () => {
@@ -26,11 +25,6 @@ export default function renderUI() {
     main.id = "main";
     main.className = "main";
 
-    screenContainer = document.createElement("div");
-    screenContainer.className = "container";
-
-    main.append(screenContainer);
-
     appContainer.append(header, main, footer);
 
     renderStartScreen();
@@ -41,14 +35,14 @@ export default function renderUI() {
 
     const startScreen = createStartScreen(startScreenFn);
 
-    screenContainer.append(startScreen);
+    main.append(startScreen);
   };
 
   const renderShipPlacementScreen = (players, handler) => {
     resetContainer();
     const shipReplacementScreen = createShipPlacementScreen(players, handler);
 
-    screenContainer.append(shipReplacementScreen);
+    main.append(shipReplacementScreen);
   };
 
   const renderBattleScreen = ({ playerBoard, enemyBoard, attackFn }) => {
@@ -66,7 +60,7 @@ export default function renderUI() {
   const renderGameOverScreen = () => {};
 
   const showMessageBoard = (messageBoard) => {
-    screenContainer.append(messageBoard);
+    main.append(messageBoard);
     messageBoard.showModal();
   };
 
