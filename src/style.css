@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap");
 
 body {
-    font-family: "Google Sans Code", monospace;
+    font-family: "Google Sans", sans-serif;
 }
 
 #app {
@@ -12,27 +12,52 @@ body {
     min-height: 100vh;
 }
 
-.header {
-    text-align: center;
-}
+@import url("./styles/header.css");
 
 .main {
     flex: 1;
+
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0 2rem;
 }
 
-.footer {
-    text-align: center;
-}
+@import url("./styles/footer.css");
 
 .start-screen {
-    padding: 2rem;
+    width: 100%;
+    max-width: 20rem;
 
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    padding: 4rem 2rem;
     border-radius: 1rem;
     box-shadow:
         rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
         rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.start-screen__title {
+    text-align: center;
+}
+
+.start-screen__main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    gap: 0.5rem;
 }
 
 .player-gameboard {
