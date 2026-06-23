@@ -8,3 +8,9 @@
 .ship-placement-screen__title {
     text-align: center;
 }
+
+.ship-placement-screen__footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}

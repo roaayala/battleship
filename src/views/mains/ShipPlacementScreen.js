@@ -81,10 +81,10 @@ export default function createShipPlacementScreen(
   });
 
   shipPlacementScreenFooter.append(
-    backButton,
+    readyButton,
     randomizeButton,
     resetButton,
-    readyButton,
+    backButton,
   );
 
   shipPlacementScreen.append(
