@@ -6,7 +6,7 @@
     color: white;
 
     border: 1px solid var(--primary);
-    border-radius: 0.5rem;
+    border-radius: 0.375rem;
 
     padding: 0.375rem 1rem;
 
@@ -17,4 +17,23 @@
 
 .button:hover {
     opacity: 0.9;
+    transition: ease-in 100ms;
+}
+
+.button.button-primary {
+    background-color: var(--neutral);
+    border: 1px solid var(--neutral);
+    color: white;
+}
+
+.button.button-outline {
+    background-color: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.button.button-outline:hover {
+    background-color: var(--primary);
+    color: white;
+    opacity: 1;
 }

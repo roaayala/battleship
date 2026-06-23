@@ -48,6 +48,7 @@ export default function createShipPlacementScreen(
 
   const readyButton = createButton({
     text: "Ready to Fight",
+    style: "button button-primary",
     fn: () => {
       readyFn(player);
     },
@@ -66,6 +67,7 @@ export default function createShipPlacementScreen(
 
   const backButton = createButton({
     text: "Back to Player Setup",
+    style: "button button-outline",
     fn: () => {
       backFn();
     },
