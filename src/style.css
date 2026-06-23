@@ -1,13 +1,45 @@
 @import url("./styles/reset.css");
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap");
+
+body {
+    font-family: "Google Sans Code", monospace;
+}
 
 #app {
     display: flex;
     flex-direction: column;
+
     min-height: 100vh;
+}
+
+.header {
+    text-align: center;
 }
 
 .main {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    text-align: center;
+}
+
+.container {
+    flex: 1;
+    padding: 0 2rem;
+    display: flex;
+    width: 100%;
+}
+
+.start-screen {
+    padding: 2rem;
+
+    border-radius: 1rem;
+    box-shadow:
+        rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+        rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
 .player-gameboard {
