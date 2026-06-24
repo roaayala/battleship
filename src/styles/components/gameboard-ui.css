@@ -7,6 +7,16 @@
     grid-template-rows: repeat(10, 1fr);
 }
 
+/*ship placement screen*/
+
+@media screen and (min-width: 768px) {
+    .ship-placement-screen .player-gameboard {
+        max-width: none;
+    }
+}
+
+/*battle screen*/
+
 .player-gameboard__tile {
     aspect-ratio: 1/1;
     border: 1px solid black;

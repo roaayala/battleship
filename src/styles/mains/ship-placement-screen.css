@@ -22,7 +22,9 @@
 
 @media screen and (min-width: 768px) {
     .ship-placement-screen__main {
+        flex: 1;
         width: 100%;
+        max-width: none;
         display: flex;
         flex-direction: row;
         gap: 1rem;
