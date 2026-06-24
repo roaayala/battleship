@@ -9,7 +9,6 @@ export default function createStartScreen(startScreenFn) {
 
   const startScreenTitle = createScreenTitle({
     text: "Player Setup",
-    style: "start-screen__title",
   });
 
   const startScreenMain = document.createElement("main");
