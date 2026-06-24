@@ -18,10 +18,9 @@ A classic Battleship game built for the web. This project focuses on applying mo
 
 ## Todo:
 
-- [ ] Restructure css files
-- [ ] Game over screen
-- [ ] Add game guidance on top bar
-- [ ] Responsive design
+- [x] Restructure css files
+- [x] Game over screen (show dialog who's win, and redirect to StartScreen)
+- [x] Responsive design
 - [ ] Implement hunt and target for Computer player
 - [ ] Implement Human vs Human mode
 - [ ] Implement Computer vs Computer mode

@@ -98,7 +98,8 @@ export default function startGame(view, model) {
           onShipPlacementPhase(humanPlayers, currentIndex, allPlayers);
         } else {
           const messageBoard = createMessageBoard({
-            text: "Fail to place ship",
+            title: "Warning!",
+            message: "Fail to place ship",
           });
 
           UI.showMessageBoard(messageBoard);
@@ -113,7 +114,15 @@ export default function startGame(view, model) {
   const onBattlePhase = (activePlayer, defendingPlayer) => {
     // winning condition
     if (defendingPlayer.getGameboard().allShipsSunk()) {
-      alert(`${activePlayer.name} Win!`);
+      const gameOverMessage = createMessageBoard({
+        title: "Game Over",
+        message: `${activePlayer.name} Win!`,
+        onWin: () => {
+          UI.renderStartScreen(onStartHandler);
+        },
+      });
+
+      UI.showMessageBoard(gameOverMessage);
       return;
     }
 

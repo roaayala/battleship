@@ -1,6 +1,6 @@
 import createButton from "./Button";
 
-export default function createMessageBoard({ title, message }) {
+export default function createMessageBoard({ title, message, onWin }) {
   const dialog = document.createElement("dialog");
   dialog.className = "dialog";
 
@@ -26,6 +26,10 @@ export default function createMessageBoard({ title, message }) {
   });
 
   dialog.addEventListener("close", () => {
+    if (onWin) {
+      onWin();
+    }
+
     dialog.remove();
   });
 

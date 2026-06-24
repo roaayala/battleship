@@ -57,8 +57,6 @@ export default function renderUI() {
     main.append(battleScreen);
   };
 
-  const renderGameOverScreen = () => {};
-
   const showMessageBoard = (messageBoard) => {
     main.append(messageBoard);
     messageBoard.showModal();
@@ -69,7 +67,6 @@ export default function renderUI() {
     renderStartScreen,
     renderShipPlacementScreen,
     renderBattleScreen,
-    renderGameOverScreen,
     showMessageBoard,
   };
 }
