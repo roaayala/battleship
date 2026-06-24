@@ -32,7 +32,8 @@ export default function startGame(view, model) {
     if (p1 === p2) {
       // sent message
       const messageBoard = createMessageBoard({
-        text: "This feature currently not available!",
+        title: "Feature no available!",
+        message: "This feature currently not available!",
       });
 
       UI.showMessageBoard(messageBoard);
