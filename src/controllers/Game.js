@@ -118,7 +118,7 @@ export default function startGame(view, model) {
         title: "Game Over",
         message: `${activePlayer.name} Win!`,
         onWin: () => {
-          UI.initialRender();
+          UI.renderStartScreen(onStartHandler);
         },
       });
 

@@ -21,6 +21,10 @@ export default function createMessageBoard({ title, message, onWin }) {
   const closeButton = createButton({
     text: "Close",
     fn: () => {
+      if (onWin) {
+        onWin();
+      }
+
       dialog.remove();
     },
   });
