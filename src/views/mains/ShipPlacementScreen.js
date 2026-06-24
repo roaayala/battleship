@@ -12,7 +12,6 @@ export default function createShipPlacementScreen(
 
   const shipPlacementScreenTitle = createScreenTitle({
     text: `Arrange your ship ${player.name}!`,
-    style: "ship-placement-screen__title",
   });
 
   let selectedShip = null;

@@ -9,17 +9,14 @@ body {
 }
 
 #app {
+    min-height: 100vh;
+
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    gap: 1rem;
 }
 
 @import url("./styles/header.css");
 @import url("./styles/main.css");
 @import url("./styles/footer.css");
 @import url("./styles/components.css");
-
-/*move to components.css*/
-@import url("./styles/components/button.css");
-@import url("./styles/components/form-select.css");
-@import url("./styles/components/ship-garage.css");
