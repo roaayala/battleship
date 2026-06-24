@@ -3,9 +3,17 @@
     width: 100%;
     padding: 0 2rem;
 
-    justify-content: center;
     display: flex;
+    justify-content: center;
     align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+    .main {
+        padding: 0;
+        max-width: 40rem;
+        margin: 0 auto;
+    }
 }
 
 @import url("./mains/start-screen.css");
