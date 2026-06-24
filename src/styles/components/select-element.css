@@ -1,0 +1,17 @@
+.form-group {
+    text-align: center;
+}
+
+.form-label {
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+.form-select {
+    display: inline-block;
+    padding: 0.125rem 0.25rem;
+}
+
+.form-select__option {
+    color: var(--txt-primary);
+}

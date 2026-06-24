@@ -12,8 +12,10 @@ export default function createShipPlacementScreen(
 
   const shipPlacementScreenTitle = createScreenTitle({
     text: `Arrange your ship ${player.name}!`,
-    style: "ship-placement-screen__title",
   });
+
+  const shipPlacementScreenMain = document.createElement("div");
+  shipPlacementScreenMain.className = "ship-placement-screen__main";
 
   let selectedShip = null;
   const placedShips = player.getGameboard().getShipsOnBoard();
@@ -42,6 +44,8 @@ export default function createShipPlacementScreen(
       placeShipFn(selectedShip, x, y, isVertical);
     },
   });
+
+  shipPlacementScreenMain.append(shipGarage, playerGameboard);
 
   const shipPlacementScreenFooter = document.createElement("footer");
   shipPlacementScreenFooter.className = "ship-placement-screen__footer";
@@ -89,8 +93,7 @@ export default function createShipPlacementScreen(
 
   shipPlacementScreen.append(
     shipPlacementScreenTitle,
-    shipGarage,
-    playerGameboard,
+    shipPlacementScreenMain,
     shipPlacementScreenFooter,
   );
 

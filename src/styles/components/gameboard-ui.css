@@ -1,11 +1,24 @@
 .player-gameboard {
-    width: 100%;
-    max-width: 24rem;
+    max-width: 20rem;
 
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
 }
+
+/*ship placement screen*/
+
+@media screen and (min-width: 768px) {
+    .ship-placement-screen .player-gameboard {
+        max-width: none;
+    }
+
+    .battle-screen .player-gameboard {
+        min-width: 18rem;
+    }
+}
+
+/*battle screen*/
 
 .player-gameboard__tile {
     aspect-ratio: 1/1;
@@ -26,4 +39,8 @@
 
 .player-gameboard__tile.hit {
     background-color: var(--success);
+}
+
+.battle-screen-left .player-gameboard__tile.hit {
+    background-color: var(--danger);
 }

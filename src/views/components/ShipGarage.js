@@ -9,10 +9,6 @@ export default function createShipGarage({
   const shipGarage = document.createElement("aside");
   shipGarage.className = "ship-garage";
 
-  const shipGarageTitle = document.createElement("h3");
-  shipGarageTitle.className = "ship-garage__title";
-  shipGarageTitle.textContent = "Available Ships";
-
   const shipGarageContainer = document.createElement("div");
   shipGarageContainer.className = "ship-garage__container";
 
@@ -78,7 +74,7 @@ export default function createShipGarage({
 
   shipGarageAction.append(axisToggleButton);
 
-  shipGarage.append(shipGarageTitle, shipGarageContainer, shipGarageAction);
+  shipGarage.append(shipGarageContainer, shipGarageAction);
 
   return shipGarage;
 }
