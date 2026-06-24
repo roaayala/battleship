@@ -3,10 +3,6 @@
 
 @import url("./styles/variables.css");
 
-@import url("./styles/components/button.css");
-@import url("./styles/components/form-select.css");
-@import url("./styles/components/ship-garage.css");
-
 body {
     font-family: "Google Sans", sans-serif;
     color: var(--primary);
@@ -21,3 +17,9 @@ body {
 @import url("./styles/header.css");
 @import url("./styles/main.css");
 @import url("./styles/footer.css");
+@import url("./styles/components.css");
+
+/*move to components.css*/
+@import url("./styles/components/button.css");
+@import url("./styles/components/form-select.css");
+@import url("./styles/components/ship-garage.css");
