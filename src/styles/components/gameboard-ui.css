@@ -1,5 +1,4 @@
 .player-gameboard {
-    width: 100%;
     max-width: 20rem;
 
     display: grid;
@@ -12,6 +11,10 @@
 @media screen and (min-width: 768px) {
     .ship-placement-screen .player-gameboard {
         max-width: none;
+    }
+
+    .battle-screen .player-gameboard {
+        min-width: 18rem;
     }
 }
 
@@ -36,4 +39,8 @@
 
 .player-gameboard__tile.hit {
     background-color: var(--success);
+}
+
+.battle-screen-left .player-gameboard__tile.hit {
+    background-color: var(--danger);
 }
